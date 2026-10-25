@@ -27,10 +27,10 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 
   return {
-    title: `${product.name} – GDG.com`,
+    title: `${product.name} – Mati Living`,
     description: product.description.slice(0, 160),
     openGraph: {
-      title: `${product.name} – GDG.com`,
+      title: `${product.name} – Mati Living`,
       description: product.description,
       images: [{ url: product.image_url }],
     },
@@ -89,7 +89,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         {/* Right: Product Details & Purchase Actions */}
         <div className="flex flex-col justify-center space-y-6 lg:col-span-6">
           <div className="space-y-3">
-            <span className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-700">
+            <span className="inline-block rounded-full bg-amber-900 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-900">
               {product.category}
             </span>
 
@@ -143,7 +143,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </div>
             <Link
               href={`/products?category=${product.category}`}
-              className="text-xs font-semibold text-indigo-600 hover:text-indigo-500"
+              className="text-xs font-semibold text-amber-900 hover:text-amber-900"
             >
               See more <ChevronRight className="inline h-3.5 w-3.5" aria-hidden="true" />
             </Link>

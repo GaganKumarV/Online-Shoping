@@ -30,14 +30,14 @@ export default function ErrorBoundary({
         <button
           type="button"
           onClick={() => reset()}
-          className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+          className="inline-flex items-center gap-2 rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
         >
           <RotateCcw className="h-4 w-4" aria-hidden="true" />
           Try Again
         </button>
         <Link
           href="/"
-          className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+          className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
         >
           Go to Homepage
         </Link>

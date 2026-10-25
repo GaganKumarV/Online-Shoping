@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShoppingBag, Search, Menu, X, BookOpen, Laptop, Sparkles } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Compass } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 
 export function Header() {
@@ -21,60 +21,70 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md transition-shadow">
-      {/* Top micro-announcement banner */}
-      <div className="bg-slate-900 px-4 py-1.5 text-center text-xs font-medium text-slate-200">
-        <span>⚡ Free Express Delivery across India on orders over ₹999</span>
+    <header className="sticky top-0 z-40 w-full border-b border-stone-200/80 bg-[#faf8f5]/95 backdrop-blur-md transition-shadow">
+      {/* Top Announcement Bar */}
+      <div className="bg-stone-900 px-4 py-1.5 text-center text-xs font-medium text-stone-200">
+        <span>Artisan-made in India • Complimentary express shipping over ₹999</span>
       </div>
 
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        {/* Logo and Brand */}
-        <div className="flex items-center gap-6">
+        {/* Brand Anchor */}
+        <div className="flex items-center gap-8">
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 transition-colors hover:text-indigo-600 focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-stone-900 transition-colors hover:text-amber-900 focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 focus-visible:ring-offset-2"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/20">
-              <Sparkles className="h-5 w-5" aria-hidden="true" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-900 text-stone-100 shadow-sm">
+              <Compass className="h-5 w-5" aria-hidden="true" />
             </div>
-            <span className="font-extrabold tracking-tight">
-              GDG<span className="text-indigo-600">.com</span>
+            <span className="font-serif tracking-tight text-xl font-extrabold text-stone-900">
+              Mati <span className="font-sans text-xs font-semibold uppercase tracking-widest text-amber-800">Living</span>
             </span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav aria-label="Main Navigation" className="hidden md:flex md:items-center md:gap-1">
+          <nav aria-label="Main Navigation" className="hidden md:flex md:items-center md:gap-1 text-sm font-medium text-stone-700">
             <Link
               href="/products"
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+              className="rounded-lg px-3 py-1.5 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800"
             >
-              All Products
+              All Pieces
             </Link>
             <Link
-              href="/products?category=books"
-              className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+              href="/products?category=ceramics"
+              className="rounded-lg px-3 py-1.5 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800"
             >
-              <BookOpen className="h-4 w-4 text-slate-500" aria-hidden="true" />
-              Books
+              Ceramics
             </Link>
             <Link
-              href="/products?category=electronics"
-              className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+              href="/products?category=textiles"
+              className="rounded-lg px-3 py-1.5 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800"
             >
-              <Laptop className="h-4 w-4 text-slate-500" aria-hidden="true" />
-              Electronics
+              Textiles
+            </Link>
+            <Link
+              href="/products?category=lighting"
+              className="rounded-lg px-3 py-1.5 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800"
+            >
+              Lighting
+            </Link>
+            <Link
+              href="/products?category=decor"
+              className="rounded-lg px-3 py-1.5 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800"
+            >
+              Objects
             </Link>
           </nav>
         </div>
 
         {/* Search Bar - Center */}
-        <div className="hidden flex-1 max-w-md sm:block">
+        <div className="hidden flex-1 max-w-sm sm:block">
           <form role="search" onSubmit={handleSearchSubmit} className="relative">
             <label htmlFor="desktop-search" className="sr-only">
-              Search books and electronics
+              Search artisanal decor
             </label>
             <Search
-              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400"
               aria-hidden="true"
             />
             <input
@@ -83,9 +93,9 @@ export function Header() {
               name="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search books, headphones, tech…"
+              placeholder="Search vases, throws, lamps…"
               autoComplete="off"
-              className="w-full rounded-full border border-slate-200 bg-slate-50 py-2 pl-9 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+              className="w-full rounded-full border border-stone-200 bg-white/80 py-2 pl-9 pr-4 text-xs text-stone-900 placeholder:text-stone-400 focus:border-amber-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-800/20"
             />
           </form>
         </div>
@@ -97,16 +107,16 @@ export function Header() {
             type="button"
             onClick={openDrawer}
             aria-label={`Open shopping cart drawer with ${itemCount} items`}
-            className="group relative flex h-10 items-center gap-2 rounded-full border border-slate-200 px-3.5 py-1.5 text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="group relative flex h-10 items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-stone-800 transition hover:border-stone-300 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 focus-visible:ring-offset-2"
           >
-            <ShoppingBag className="h-4 w-4 text-slate-700 transition-transform group-hover:scale-105" aria-hidden="true" />
-            <span className="hidden text-sm font-medium sm:inline">Cart</span>
+            <ShoppingBag className="h-4 w-4 text-stone-700 transition-transform group-hover:scale-105" aria-hidden="true" />
+            <span className="hidden text-xs font-semibold uppercase tracking-wider sm:inline">Bag</span>
             {itemCount > 0 ? (
-              <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-indigo-600 px-1.5 text-xs font-bold tabular-nums text-white">
+              <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-amber-900 px-1.5 text-xs font-bold tabular-nums text-white">
                 {itemCount}
               </span>
             ) : (
-              <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-slate-100 px-1.5 text-xs font-medium tabular-nums text-slate-500">
+              <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-stone-100 px-1.5 text-xs font-medium tabular-nums text-stone-500">
                 0
               </span>
             )}
@@ -118,7 +128,7 @@ export function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? 'Close main navigation' : 'Open main navigation'}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 md:hidden"
           >
             {mobileMenuOpen ? (
               <X className="h-5 w-5" aria-hidden="true" />
@@ -129,14 +139,14 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile search input */}
-      <div className="border-t border-slate-100 px-4 py-2 sm:hidden">
+      {/* Mobile search bar */}
+      <div className="border-t border-stone-200/60 bg-[#faf8f5] px-4 py-2 sm:hidden">
         <form role="search" onSubmit={handleSearchSubmit} className="relative">
           <label htmlFor="mobile-search" className="sr-only">
-            Search products
+            Search artisanal decor
           </label>
           <Search
-            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+            className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-stone-400"
             aria-hidden="true"
           />
           <input
@@ -145,54 +155,63 @@ export function Header() {
             name="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search books & electronics…"
+            placeholder="Search ceramics, lighting, textiles…"
             autoComplete="off"
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            className="w-full rounded-lg border border-stone-200 bg-white py-1.5 pl-8 pr-3 text-xs text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-800"
           />
         </form>
       </div>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <nav
           aria-label="Mobile Navigation"
-          className="border-t border-slate-200 bg-white px-4 py-4 md:hidden animate-in slide-in-from-top-2 duration-200"
+          className="border-t border-stone-200 bg-white px-4 py-4 md:hidden animate-in slide-in-from-top-2 duration-200"
         >
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-1">
             <Link
               href="/products"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg px-3 py-2 text-base font-medium text-slate-800 hover:bg-slate-100"
+              className="rounded-lg px-3 py-2 text-sm font-semibold text-stone-800 hover:bg-stone-100"
             >
-              All Products
+              All Pieces
             </Link>
             <Link
-              href="/products?category=books"
+              href="/products?category=ceramics"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-slate-800 hover:bg-slate-100"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
             >
-              <BookOpen className="h-5 w-5 text-indigo-600" aria-hidden="true" />
-              Books
+              Artisan Ceramics
             </Link>
             <Link
-              href="/products?category=electronics"
+              href="/products?category=textiles"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-slate-800 hover:bg-slate-100"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
             >
-              <Laptop className="h-5 w-5 text-indigo-600" aria-hidden="true" />
-              Electronics
+              Handwoven Textiles
+            </Link>
+            <Link
+              href="/products?category=lighting"
+              onClick={() => setMobileMenuOpen(false)}
+              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
+            >
+              Ambient Lighting
+            </Link>
+            <Link
+              href="/products?category=decor"
+              onClick={() => setMobileMenuOpen(false)}
+              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
+            >
+              Hand-Carved Objects
             </Link>
             <Link
               href="/cart"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between rounded-lg px-3 py-2 text-base font-medium text-slate-800 hover:bg-slate-100"
+              className="flex items-center justify-between rounded-lg border-t border-stone-100 pt-3 px-3 py-2 text-sm font-semibold text-stone-900 hover:bg-stone-100"
             >
-              <span className="flex items-center gap-2">
-                <ShoppingBag className="h-5 w-5 text-slate-600" aria-hidden="true" />
-                View Full Cart
-              </span>
-              <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-800">
-                {itemCount} items
+              <span>View Shopping Bag</span>
+              <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-900">
+                {itemCount}
               </span>
             </Link>
           </div>

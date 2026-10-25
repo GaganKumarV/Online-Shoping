@@ -43,10 +43,10 @@ export function formatDate(dateString: string): string {
 }
 
 /**
- * Generate human-readable order ID
+ * Generate human-readable order ID with MATI prefix
  */
 export function generateOrderNumber(): string {
-  const prefix = 'GDG';
+  const prefix = 'MATI';
   const timestamp = Date.now().toString().slice(-6);
   const random = Math.floor(1000 + Math.random() * 9000);
   return `${prefix}-${timestamp}-${random}`;

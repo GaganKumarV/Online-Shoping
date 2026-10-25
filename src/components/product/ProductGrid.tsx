@@ -23,7 +23,7 @@ export function ProductGrid({ products }: ProductGridProps) {
         </p>
         <Link
           href="/products"
-          className="mt-6 inline-flex items-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-600 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+          className="mt-6 inline-flex items-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
         >
           View All Products
         </Link>
@@ -39,3 +39,4 @@ export function ProductGrid({ products }: ProductGridProps) {
     </div>
   );
 }
+

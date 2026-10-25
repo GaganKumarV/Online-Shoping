@@ -87,12 +87,12 @@ export default function OrderConfirmationPage({
         </h2>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl bg-slate-50 p-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-900 text-white">
               <Truck className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
               <p className="text-sm font-bold text-slate-900">Arriving in 2–4 Business Days</p>
-              <p className="text-xs text-slate-500">Express Delivery via GDG Logistics</p>
+              <p className="text-xs text-slate-500">Express Delivery via Mati Express</p>
             </div>
           </div>
           <span className="self-start sm:self-auto rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
@@ -107,7 +107,7 @@ export default function OrderConfirmationPage({
           {/* Purchased Items List */}
           <div className="md:col-span-7 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Package className="h-5 w-5 text-indigo-600" aria-hidden="true" />
+              <Package className="h-5 w-5 text-amber-900" aria-hidden="true" />
               <span>Purchased Items ({order.items.length})</span>
             </h2>
 
@@ -158,7 +158,7 @@ export default function OrderConfirmationPage({
               </div>
               <div className="border-t border-slate-200 pt-2 flex justify-between text-sm font-bold text-slate-900">
                 <span>Total Paid</span>
-                <span className="text-base tabular-nums text-indigo-700">
+                <span className="text-base tabular-nums text-amber-900">
                   {formatCurrency(order.total)}
                 </span>
               </div>
@@ -208,7 +208,7 @@ export default function OrderConfirmationPage({
         <button
           type="button"
           onClick={() => window.print()}
-          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
         >
           <Printer className="h-4 w-4" aria-hidden="true" />
           Print Order Receipt
@@ -216,7 +216,7 @@ export default function OrderConfirmationPage({
 
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-600 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+          className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-amber-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
         >
           Continue Shopping
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

@@ -50,9 +50,9 @@ export function ProductFilters({
           <button
             type="button"
             onClick={() => updateFilters('category', 'all')}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 ${
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 ${
               currentCategory === 'all' || !currentCategory
-                ? 'bg-slate-900 text-white shadow-sm'
+                ? 'bg-amber-900 text-white shadow-sm'
                 : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
             }`}
           >
@@ -63,9 +63,9 @@ export function ProductFilters({
               key={cat.slug}
               type="button"
               onClick={() => updateFilters('category', cat.slug)}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 ${
+              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 ${
                 currentCategory === cat.slug
-                  ? 'bg-slate-900 text-white shadow-sm'
+                  ? 'bg-amber-900 text-white shadow-sm'
                   : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
               }`}
             >
@@ -91,7 +91,7 @@ export function ProductFilters({
                 }
               }}
               placeholder="Search in results…"
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
             />
           </div>
 
@@ -105,7 +105,7 @@ export function ProductFilters({
               id="sort-select"
               value={currentSort}
               onChange={(e) => updateFilters('sort', e.target.value)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 focus:border-amber-900 focus:outline-none focus:ring-2 focus:ring-amber-900"
             >
               <option value="featured">Featured / Recommended</option>
               <option value="price-asc">Price: Low to High</option>
@@ -144,3 +144,4 @@ export function ProductFilters({
     </div>
   );
 }
+

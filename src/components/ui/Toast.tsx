@@ -21,10 +21,11 @@ export function Toast() {
         type="button"
         onClick={dismissToast}
         aria-label="Dismiss notification"
-        className="ml-auto inline-flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+        className="ml-auto inline-flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
       >
         <X className="h-4 w-4" aria-hidden="true" />
       </button>
     </div>
   );
 }
+

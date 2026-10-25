@@ -44,7 +44,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
   const categoryName = category
     ? category.charAt(0).toUpperCase() + category.slice(1)
-    : 'All Products';
+    : 'All Pieces';
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
@@ -68,7 +68,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       {/* Page Heading */}
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-          {category ? `${categoryName}` : 'All Products'}
+          {category ? `${categoryName}` : 'All Pieces'}
         </h1>
         <p className="text-sm text-slate-500 max-w-2xl">
           Discover handpicked tech publications and developer electronics. All items are verified authentic and backed by our express delivery.
@@ -89,3 +89,4 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     </div>
   );
 }
+

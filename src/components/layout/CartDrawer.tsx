@@ -69,9 +69,9 @@ export function CartDrawer() {
         {/* Drawer Header */}
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
           <div className="flex items-center gap-2">
-            <ShoppingBag className="h-5 w-5 text-indigo-600" aria-hidden="true" />
+            <ShoppingBag className="h-5 w-5 text-amber-900" aria-hidden="true" />
             <h2 className="text-lg font-bold text-slate-900">Your Cart</h2>
-            <span className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold tabular-nums text-indigo-700">
+            <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold tabular-nums text-amber-800">
               {itemCount} {itemCount === 1 ? 'item' : 'items'}
             </span>
           </div>
@@ -79,7 +79,7 @@ export function CartDrawer() {
             type="button"
             onClick={closeDrawer}
             aria-label="Close cart drawer"
-            className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+            className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -93,12 +93,12 @@ export function CartDrawer() {
             </div>
             <h3 className="text-base font-semibold text-slate-900">Your cart is empty</h3>
             <p className="mt-1 text-sm text-slate-500 max-w-xs">
-              Explore our collection of bestselling tech books and curated electronics.
+              Explore our collection of bestselling tech books and our artisan ceramics, textiles, lighting, and decor..
             </p>
             <button
               type="button"
               onClick={closeDrawer}
-              className="mt-6 inline-flex items-center justify-center rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+              className="mt-6 inline-flex items-center justify-center rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
             >
               Start Shopping
             </button>
@@ -123,7 +123,7 @@ export function CartDrawer() {
                       <Link
                         href={`/products/${product.slug}`}
                         onClick={closeDrawer}
-                        className="text-sm font-semibold text-slate-900 line-clamp-2 hover:text-indigo-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+                        className="text-sm font-semibold text-slate-900 line-clamp-2 hover:text-amber-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                       >
                         {product.name}
                       </Link>
@@ -146,7 +146,7 @@ export function CartDrawer() {
                         type="button"
                         onClick={() => updateQuantity(product.id, quantity - 1)}
                         aria-label={`Decrease quantity of ${product.name}`}
-                        className="flex h-7 w-7 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-l-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+                        className="flex h-7 w-7 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-l-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                       >
                         <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
@@ -158,7 +158,7 @@ export function CartDrawer() {
                         onClick={() => updateQuantity(product.id, quantity + 1)}
                         disabled={quantity >= product.stock}
                         aria-label={`Increase quantity of ${product.name}`}
-                        className="flex h-7 w-7 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-r-md disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+                        className="flex h-7 w-7 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-r-md disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                       >
                         <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
@@ -197,7 +197,7 @@ export function CartDrawer() {
               </div>
               <div className="flex justify-between border-t border-slate-200/80 pt-2 text-base font-bold text-slate-900">
                 <span>Total</span>
-                <span className="tabular-nums text-indigo-700">{formatCurrency(total)}</span>
+                <span className="tabular-nums text-amber-800">{formatCurrency(total)}</span>
               </div>
             </div>
 
@@ -205,7 +205,7 @@ export function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={closeDrawer}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-indigo-500/20 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-900 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-amber-900/20 hover:bg-amber-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
               >
                 Checkout Now
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -213,7 +213,7 @@ export function CartDrawer() {
               <Link
                 href="/cart"
                 onClick={closeDrawer}
-                className="flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+                className="flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
               >
                 View Full Cart
               </Link>
@@ -224,3 +224,4 @@ export function CartDrawer() {
     </div>
   );
 }
+

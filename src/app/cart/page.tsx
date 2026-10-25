@@ -33,7 +33,7 @@ export default function CartPage() {
           </p>
           <Link
             href="/products"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-500 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-amber-900 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-amber-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
           >
             Explore Catalog
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -89,7 +89,7 @@ export default function CartPage() {
                   <div className="flex justify-between items-start gap-4">
                     <Link
                       href={`/products/${product.slug}`}
-                      className="text-base font-semibold text-slate-900 hover:text-indigo-600 transition-colors"
+                      className="text-base font-semibold text-slate-900 hover:text-amber-900 transition-colors"
                     >
                       {product.name}
                     </Link>
@@ -112,7 +112,7 @@ export default function CartPage() {
                       type="button"
                       onClick={() => updateQuantity(product.id, quantity - 1)}
                       aria-label={`Decrease quantity of ${product.name}`}
-                      className="flex h-8 w-8 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-l-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+                      className="flex h-8 w-8 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-l-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                     >
                       <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                     </button>
@@ -124,7 +124,7 @@ export default function CartPage() {
                       onClick={() => updateQuantity(product.id, quantity + 1)}
                       disabled={quantity >= product.stock}
                       aria-label={`Increase quantity of ${product.name}`}
-                      className="flex h-8 w-8 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-r-lg disabled:opacity-30 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+                      className="flex h-8 w-8 items-center justify-center text-slate-600 hover:bg-slate-100 rounded-r-lg disabled:opacity-30 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                     >
                       <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                     </button>
@@ -144,7 +144,7 @@ export default function CartPage() {
           <div className="pt-6">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-amber-900 hover:text-amber-500"
             >
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               Continue Shopping
@@ -183,14 +183,14 @@ export default function CartPage() {
             </div>
 
             {shipping > 0 && (
-              <p className="text-xs text-indigo-600 bg-indigo-50 p-2.5 rounded-xl">
+              <p className="text-xs text-amber-900 bg-amber-900 p-2.5 rounded-xl">
                 Add {formatCurrency(999 - subtotal)} more to qualify for <strong>FREE Delivery</strong>!
               </p>
             )}
 
             <div className="border-t border-slate-200 pt-3 flex justify-between text-base font-bold text-slate-900">
               <span>Total Amount</span>
-              <span className="text-xl tabular-nums text-indigo-700">
+              <span className="text-xl tabular-nums text-amber-800">
                 {formatCurrency(total)}
               </span>
             </div>
@@ -198,7 +198,7 @@ export default function CartPage() {
 
           <Link
             href="/checkout"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-indigo-500/20 hover:bg-indigo-500 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-900 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-amber-500/20 hover:bg-amber-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
           >
             Proceed to Checkout
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -213,3 +213,4 @@ export default function CartPage() {
     </div>
   );
 }
+

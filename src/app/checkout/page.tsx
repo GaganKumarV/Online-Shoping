@@ -141,7 +141,7 @@ export default function CheckoutPage() {
         <p className="mt-2 text-sm text-slate-500">Add products to your cart before checking out.</p>
         <Link
           href="/products"
-          className="mt-6 inline-flex rounded-xl bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white"
+          className="mt-6 inline-flex rounded-xl bg-amber-900 px-6 py-2.5 text-sm font-semibold text-white"
         >
           Browse Catalog
         </Link>
@@ -155,7 +155,7 @@ export default function CheckoutPage() {
       <div className="flex items-center gap-4 border-b border-slate-200 pb-5">
         <Link
           href="/cart"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
           aria-label="Back to Cart"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
@@ -178,7 +178,7 @@ export default function CheckoutPage() {
             {/* 1. Contact & Shipping Address */}
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
               <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-900 text-xs font-bold text-white">
                   1
                 </span>
                 <h2 className="text-lg font-bold text-slate-900">Delivery Address</h2>
@@ -197,7 +197,7 @@ export default function CheckoutPage() {
                     value={address.fullName}
                     onChange={(e) => setAddress({ ...address, fullName: e.target.value })}
                     placeholder="e.g. Gagan Deep"
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
                   />
                   {errors.fullName && <p className="mt-1 text-xs text-rose-600">{errors.fullName}</p>}
                 </div>
@@ -216,7 +216,7 @@ export default function CheckoutPage() {
                     value={address.email}
                     onChange={(e) => setAddress({ ...address, email: e.target.value })}
                     placeholder="name@example.com"
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
                   />
                   {errors.email && <p className="mt-1 text-xs text-rose-600">{errors.email}</p>}
                 </div>
@@ -234,7 +234,7 @@ export default function CheckoutPage() {
                     value={address.phone}
                     onChange={(e) => setAddress({ ...address, phone: e.target.value })}
                     placeholder="9876543210"
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
                   />
                   {errors.phone && <p className="mt-1 text-xs text-rose-600">{errors.phone}</p>}
                 </div>
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
                     value={address.streetAddress}
                     onChange={(e) => setAddress({ ...address, streetAddress: e.target.value })}
                     placeholder="Flat 402, Sunshine Apartments, 12th Main Road"
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
                   />
                   {errors.streetAddress && (
                     <p className="mt-1 text-xs text-rose-600">{errors.streetAddress}</p>
@@ -270,7 +270,7 @@ export default function CheckoutPage() {
                     value={address.city}
                     onChange={(e) => setAddress({ ...address, city: e.target.value })}
                     placeholder="Bengaluru"
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
                   />
                   {errors.city && <p className="mt-1 text-xs text-rose-600">{errors.city}</p>}
                 </div>
@@ -284,7 +284,7 @@ export default function CheckoutPage() {
                     name="state"
                     value={address.state}
                     onChange={(e) => setAddress({ ...address, state: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
                   >
                     <option value="Karnataka">Karnataka</option>
                     <option value="Maharashtra">Maharashtra</option>
@@ -312,7 +312,7 @@ export default function CheckoutPage() {
                     value={address.postalCode}
                     onChange={(e) => setAddress({ ...address, postalCode: e.target.value })}
                     placeholder="560001"
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-900"
                   />
                   {errors.postalCode && (
                     <p className="mt-1 text-xs text-rose-600">{errors.postalCode}</p>
@@ -339,7 +339,7 @@ export default function CheckoutPage() {
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-xs font-bold text-white">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-900 text-xs font-bold text-white">
                     2
                   </span>
                   <h2 className="text-lg font-bold text-slate-900">Payment Option</h2>
@@ -354,9 +354,9 @@ export default function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('card')}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 ${
                     paymentMethod === 'card'
-                      ? 'border-indigo-600 bg-indigo-50/60 text-indigo-900 shadow-sm'
+                      ? 'border-amber-900 bg-amber-900/60 text-amber-900 shadow-sm'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                   }`}
                 >
@@ -367,9 +367,9 @@ export default function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('upi')}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 ${
                     paymentMethod === 'upi'
-                      ? 'border-indigo-600 bg-indigo-50/60 text-indigo-900 shadow-sm'
+                      ? 'border-amber-900 bg-amber-900/60 text-amber-900 shadow-sm'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                   }`}
                 >
@@ -380,9 +380,9 @@ export default function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('netbanking')}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 ${
                     paymentMethod === 'netbanking'
-                      ? 'border-indigo-600 bg-indigo-50/60 text-indigo-900 shadow-sm'
+                      ? 'border-amber-900 bg-amber-900/60 text-amber-900 shadow-sm'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                   }`}
                 >
@@ -393,9 +393,9 @@ export default function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('cod')}
-                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 ${
+                  className={`flex flex-col items-center justify-center gap-1.5 rounded-xl border p-3.5 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 ${
                     paymentMethod === 'cod'
-                      ? 'border-indigo-600 bg-indigo-50/60 text-indigo-900 shadow-sm'
+                      ? 'border-amber-900 bg-amber-900/60 text-amber-900 shadow-sm'
                       : 'border-slate-200 hover:bg-slate-50 text-slate-700'
                   }`}
                 >
@@ -421,7 +421,7 @@ export default function CheckoutPage() {
                       placeholder="4242 4242 4242 4242"
                       value={cardNumber}
                       onChange={(e) => setCardNumber(e.target.value)}
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-900"
                     />
                     {errors.cardNumber && (
                       <p className="mt-1 text-xs text-rose-600">{errors.cardNumber}</p>
@@ -440,7 +440,7 @@ export default function CheckoutPage() {
                         maxLength={5}
                         value={cardExpiry}
                         onChange={(e) => setCardExpiry(e.target.value)}
-                        className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                        className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-900"
                       />
                       {errors.cardExpiry && (
                         <p className="mt-1 text-xs text-rose-600">{errors.cardExpiry}</p>
@@ -457,7 +457,7 @@ export default function CheckoutPage() {
                         maxLength={4}
                         value={cardCvc}
                         onChange={(e) => setCardCvc(e.target.value)}
-                        className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                        className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-900"
                       />
                       {errors.cardCvc && (
                         <p className="mt-1 text-xs text-rose-600">{errors.cardCvc}</p>
@@ -482,7 +482,7 @@ export default function CheckoutPage() {
                       placeholder="username@okhdfcbank"
                       value={upiId}
                       onChange={(e) => setUpiId(e.target.value)}
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-900"
                     />
                     {errors.upiId && <p className="mt-1 text-xs text-rose-600">{errors.upiId}</p>}
                   </div>
@@ -562,7 +562,7 @@ export default function CheckoutPage() {
 
                 <div className="border-t border-slate-200 pt-3 flex justify-between text-base font-bold text-slate-900">
                   <span>Total Amount</span>
-                  <span className="text-xl tabular-nums text-indigo-700">
+                  <span className="text-xl tabular-nums text-amber-900">
                     {formatCurrency(total)}
                   </span>
                 </div>
@@ -572,7 +572,7 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-indigo-500/25 transition hover:bg-indigo-500 active:scale-98 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-900 px-6 py-4 text-base font-bold text-white shadow-lg shadow-amber-900/25 transition hover:bg-amber-900 active:scale-98 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
               >
                 {isSubmitting ? (
                   <>
