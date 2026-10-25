@@ -22,20 +22,21 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 bg-white p-12 text-center shadow-sm">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-stone-100 text-stone-400 mb-4">
-            <ShoppingBag className="h-10 w-10 stroke-1" aria-hidden="true" />
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="mx-auto flex max-w-lg flex-col items-center text-center">
+          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-100/70 text-amber-900">
+            <ShoppingBag className="h-7 w-7 stroke-1" aria-hidden="true" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900">Your cart is empty</h1>
-          <p className="mt-2 max-w-sm text-sm text-stone-500">
-            You haven&apos;t added any items to your shopping cart yet. Explore our handmade ceramics, textiles, lighting, and decor collection.
+          <p className="eyebrow">Your selection</p>
+          <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-stone-900 text-balance">
+            Your basket is empty
+          </h1>
+          <p className="mt-4 text-sm leading-relaxed text-stone-600 text-pretty sm:text-base">
+            Nothing here yet. Explore wheel-thrown ceramics, block-printed textiles, and warm
+            lighting — all made by hand in small batches.
           </p>
-          <Link
-            href="/products"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-amber-900 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-amber-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-          >
-            Explore Catalog
+          <Link href="/products" className="btn-primary mt-8">
+            Explore the collection
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
@@ -44,169 +45,164 @@ export default function CartPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-stone-200 pb-5">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      {/* Page header */}
+      <div className="flex flex-col gap-4 border-b border-stone-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-stone-900">
-            Shopping Cart
+          <p className="eyebrow">Your selection</p>
+          <h1 className="mt-3 font-display text-3xl font-medium tracking-tight text-stone-900 sm:text-4xl">
+            Your basket
           </h1>
-          <p className="mt-1 text-sm text-stone-500">
-            You have <span className="font-semibold text-stone-900">{itemCount}</span>{' '}
-            {itemCount === 1 ? 'item' : 'items'} in your cart.
+          <p className="mt-2 text-sm text-stone-500">
+            {itemCount} {itemCount === 1 ? 'piece' : 'pieces'} reserved for the next 60 minutes.
           </p>
         </div>
 
         <button
           type="button"
           onClick={clearCart}
-          className="self-start sm:self-auto inline-flex items-center gap-1.5 text-xs font-semibold text-rose-600 hover:text-rose-700"
+          className="inline-flex min-h-11 items-center gap-1.5 self-start rounded-lg text-xs font-semibold text-stone-500 transition-colors hover:text-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 sm:self-auto"
         >
           <Trash2 className="h-4 w-4" aria-hidden="true" />
-          Clear Cart
+          Clear basket
         </button>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
-        {/* Cart Line Items Table/List */}
-        <div className="lg:col-span-8 divide-y divide-stone-200 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-          {items.map(({ product, quantity }) => (
-            <div key={product.id} className="flex flex-col sm:flex-row gap-5 py-6 first:pt-0 last:pb-0">
-              {/* Product Thumbnail */}
-              <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl border border-stone-100 bg-stone-50">
-                <Image
-                  src={product.image_url}
-                  alt={product.name}
-                  fill
-                  sizes="96px"
-                  className="object-cover"
-                />
-              </div>
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
+        {/* Line items */}
+        <div className="lg:col-span-8">
+          <ul className="divide-y divide-stone-200 border-y border-stone-200">
+            {items.map(({ product, quantity }) => (
+              <li key={product.id} className="flex gap-4 py-6 sm:gap-6">
+                <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-stone-100 sm:h-28 sm:w-24">
+                  <Image
+                    src={product.image_url}
+                    alt={product.name}
+                    fill
+                    sizes="96px"
+                    className="object-cover"
+                  />
+                </div>
 
-              {/* Product Info */}
-              <div className="flex flex-1 flex-col justify-between space-y-2">
-                <div>
-                  <div className="flex justify-between items-start gap-4">
-                    <Link
-                      href={`/products/${product.slug}`}
-                      className="text-base font-semibold text-stone-900 hover:text-amber-900 transition-colors"
-                    >
-                      {product.name}
-                    </Link>
+                <div className="flex min-w-0 flex-1 flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-800">
+                      {product.category}
+                    </p>
+                    <h2 className="mt-1.5 font-display text-lg font-medium leading-snug text-stone-900">
+                      <Link
+                        href={`/products/${product.slug}`}
+                        className="rounded transition-colors hover:text-amber-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
+                      >
+                        {product.name}
+                      </Link>
+                    </h2>
+                    <p className="mt-1 text-xs text-stone-500">
+                      {formatCurrency(product.price)} each · Inclusive of GST
+                    </p>
                     <button
                       type="button"
                       onClick={() => removeItem(product.id)}
-                      aria-label={`Remove ${product.name} from cart`}
-                      className="text-stone-400 hover:text-rose-600 p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+                      className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 transition-colors hover:text-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2"
                     >
-                      <Trash2 className="h-4 w-4" aria-hidden="true" />
-                    </button>
-                  </div>
-                  <p className="text-xs text-stone-500 capitalize">{product.category}</p>
-                </div>
-
-                {/* Pricing & Quantity Controls */}
-                <div className="flex items-center justify-between pt-2">
-                  <div className="flex items-center rounded-xl border border-stone-200 bg-white">
-                    <button
-                      type="button"
-                      onClick={() => updateQuantity(product.id, quantity - 1)}
-                      aria-label={`Decrease quantity of ${product.name}`}
-                      className="flex h-10 w-10 items-center justify-center text-stone-600 hover:bg-stone-100 rounded-l-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-                    >
-                      <Minus className="h-3.5 w-3.5" aria-hidden="true" />
-                    </button>
-                    <span className="w-10 text-center text-sm font-semibold tabular-nums text-stone-900">
-                      {quantity}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => updateQuantity(product.id, quantity + 1)}
-                      disabled={quantity >= product.stock}
-                      aria-label={`Increase quantity of ${product.name}`}
-                      className="flex h-10 w-10 items-center justify-center text-stone-600 hover:bg-stone-100 rounded-r-lg disabled:opacity-30 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-                    >
-                      <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                      <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
+                      Remove
                     </button>
                   </div>
 
-                  <div className="text-right">
-                    <span className="text-xs text-stone-500 block">Unit: {formatCurrency(product.price)}</span>
-                    <span className="text-base font-bold tabular-nums text-stone-900">
+                  <div className="flex items-end justify-between gap-6 sm:flex-col sm:items-end">
+                    <div className="flex items-center rounded-full border border-stone-300 bg-white">
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(product.id, quantity - 1)}
+                        aria-label={`Decrease quantity of ${product.name}`}
+                        className="flex h-11 w-11 items-center justify-center rounded-l-full text-stone-600 transition-colors hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+                      >
+                        <Minus className="h-3.5 w-3.5" aria-hidden="true" />
+                      </button>
+                      <span className="w-8 text-center text-sm font-semibold tabular-nums text-stone-900">
+                        {quantity}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(product.id, quantity + 1)}
+                        disabled={quantity >= product.stock}
+                        aria-label={`Increase quantity of ${product.name}`}
+                        className="flex h-11 w-11 items-center justify-center rounded-r-full text-stone-600 transition-colors hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+                      >
+                        <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                      </button>
+                    </div>
+
+                    <span className="text-base font-semibold tabular-nums text-stone-900">
                       {formatCurrency(product.price * quantity)}
                     </span>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </li>
+            ))}
+          </ul>
 
-          <div className="pt-6">
+          <div className="mt-6">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-amber-900 hover:text-amber-500"
+              className="inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-semibold text-amber-900 transition-colors hover:text-amber-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
             >
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-              Continue Shopping
+              Continue shopping
             </Link>
           </div>
         </div>
 
-        {/* Order Summary Card */}
-        <div className="lg:col-span-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-6">
-          <h2 className="text-lg font-bold text-stone-900">Order Summary</h2>
+        {/* Order summary */}
+        <aside className="surface-card p-6 sm:p-7 lg:col-span-4 lg:sticky lg:top-24">
+          <h2 className="font-display text-2xl font-medium text-stone-900">Order summary</h2>
 
-          <div className="space-y-3 text-sm text-stone-600">
-            <div className="flex justify-between">
-              <span>Items Subtotal</span>
-              <span className="font-semibold tabular-nums text-stone-900">
-                {formatCurrency(subtotal)}
-              </span>
+          <dl className="mt-6 space-y-3 text-sm">
+            <div className="flex justify-between gap-4">
+              <dt className="text-stone-600">Subtotal</dt>
+              <dd className="font-medium tabular-nums text-stone-900">{formatCurrency(subtotal)}</dd>
             </div>
 
-            <div className="flex justify-between">
-              <span>Estimated Shipping</span>
-              <span className="font-medium tabular-nums text-stone-900">
+            <div className="flex justify-between gap-4">
+              <dt className="text-stone-600">Delivery</dt>
+              <dd className="font-medium tabular-nums text-stone-900">
                 {shipping === 0 ? (
-                  <span className="text-emerald-600 font-semibold">FREE</span>
+                  <span className="font-semibold text-emerald-700">Free</span>
                 ) : (
                   formatCurrency(shipping)
                 )}
-              </span>
+              </dd>
             </div>
 
             {shipping > 0 && (
-              <p className="text-xs text-amber-900 bg-amber-50 border border-amber-200 p-2.5 rounded-xl">
-                Add {formatCurrency(999 - subtotal)} more to qualify for <strong>FREE Delivery</strong>!
+              <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-900">
+                Add {formatCurrency(999 - subtotal)} more for free express delivery.
               </p>
             )}
 
-            <div className="flex items-baseline justify-between border-t border-stone-200 pt-3 text-base font-bold text-stone-900">
-              <span>Total Amount</span>
-              <span className="text-xl tabular-nums text-amber-800">
+            <div className="flex items-baseline justify-between gap-4 border-t border-stone-200 pt-4">
+              <dt className="text-base font-semibold text-stone-900">Total</dt>
+              <dd className="font-display text-2xl font-medium tabular-nums text-stone-900">
                 {formatCurrency(total)}
-              </span>
+              </dd>
             </div>
             <p className="text-right text-xs text-stone-500">
-              Includes {formatCurrency(tax)} GST (18%)
+              Inclusive of all taxes · {formatCurrency(tax)} GST
             </p>
-          </div>
+          </dl>
 
-          <Link
-            href="/checkout"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-900 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-amber-500/20 hover:bg-amber-800 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
-          >
-            Proceed to Checkout
+          <Link href="/checkout" className="btn-primary mt-6 w-full">
+            Proceed to checkout
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
 
-          <div className="flex items-center gap-2 rounded-xl bg-stone-50 p-3 text-xs text-stone-500">
-            <ShieldCheck className="h-4 w-4 text-emerald-600 flex-shrink-0" aria-hidden="true" />
-            <span>Guaranteed safe checkout with 256-bit bank encryption.</span>
+          <div className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-stone-500">
+            <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-700" aria-hidden="true" />
+            <span>Secure checkout · Free returns within 7 days of delivery.</span>
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   );
 }
-

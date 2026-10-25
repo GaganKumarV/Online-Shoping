@@ -8,11 +8,24 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { ProductFilterParams } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'All Pieces – Ceramics, Textiles, Lighting \u0026 Decor',
-  description: 'Browse our handmade Indian home decor: ceramics, block-printed textiles, artisan lighting, and slow-made objects.',
+  title: 'All Pieces – Ceramics, Textiles, Lighting & Objects',
+  description:
+    'Browse handmade Indian home decor: wheel-thrown ceramics, block-printed textiles, artisan lighting, and small-batch objects.',
+  openGraph: {
+    title: 'All Pieces – Mati Living',
+    description:
+      'Browse wheel-thrown ceramics, block-printed textiles, artisan lighting, and small-batch objects made across India.',
+  },
 };
 
 export const revalidate = 60;
+
+const CATEGORY_LABELS: Record<string, string> = {
+  ceramics: 'Ceramics',
+  textiles: 'Textiles',
+  lighting: 'Lighting',
+  decor: 'Objects',
+};
 
 interface ProductsPageProps {
   searchParams: {
@@ -43,39 +56,44 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   ]);
 
   const categoryName = category
-    ? category.charAt(0).toUpperCase() + category.slice(1)
-    : 'All Pieces';
+    ? CATEGORY_LABELS[category.toLowerCase()] ??
+      category.charAt(0).toUpperCase() + category.slice(1)
+    : 'All pieces';
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
-      {/* Breadcrumb Navigation */}
+    <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-stone-500">
-        <Link href="/" className="hover:text-stone-900 transition-colors">
+        <Link href="/" className="rounded transition-colors hover:text-stone-900">
           Home
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-        <Link href="/products" className="hover:text-stone-900 transition-colors">
-          Catalog
+        <ChevronRight className="h-3.5 w-3.5 text-stone-400" aria-hidden="true" />
+        <Link href="/products" className="rounded transition-colors hover:text-stone-900">
+          Collection
         </Link>
         {category && (
           <>
-            <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-            <span className="font-semibold text-stone-900">{categoryName}</span>
+            <ChevronRight className="h-3.5 w-3.5 text-stone-400" aria-hidden="true" />
+            <span aria-current="page" className="font-semibold text-stone-900">
+              {categoryName}
+            </span>
           </>
         )}
       </nav>
 
-      {/* Page Heading */}
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
-          {category ? `${categoryName}` : 'All Pieces'}
+      {/* Heading */}
+      <header className="max-w-2xl">
+        <p className="eyebrow">The collection</p>
+        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-stone-900 sm:text-5xl">
+          {categoryName}
         </h1>
-        <p className="text-sm text-stone-500 max-w-2xl">
-          Handmade in India by skilled artisans. Discover ceramics, block-printed textiles, artisan lighting, and slow-made objects for your home.
+        <p className="mt-3 text-sm leading-relaxed text-stone-600 sm:text-base">
+          {category
+            ? `Pieces from our ${categoryName.toLowerCase()} collection, made in small batches by artisan workshops across India.`
+            : 'Wheel-thrown ceramics, block-printed textiles, warm lighting, and small-batch objects — all made by hand in India.'}
         </p>
-      </div>
+      </header>
 
-      {/* Interactive Filters Bar */}
       <ProductFilters
         currentCategory={category}
         currentSort={sort}
@@ -84,9 +102,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         totalProducts={products.length}
       />
 
-      {/* Products Grid / Empty state */}
       <ProductGrid products={products} />
     </div>
   );
 }
-

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ChevronRight, ArrowLeft } from 'lucide-react';
+import { ChevronRight, ArrowLeft, ChevronDown } from 'lucide-react';
 import { getProductBySlug, getRelatedProducts } from '@/lib/db';
 import { formatCurrency } from '@/lib/format';
 import { RatingStars } from '@/components/ui/RatingStars';
@@ -11,6 +11,24 @@ import { ProductDetailActions } from '@/components/product/ProductDetailActions'
 import { ProductCard } from '@/components/product/ProductCard';
 
 export const revalidate = 60;
+
+const CATEGORY_LABELS: Record<string, string> = {
+  ceramics: 'Ceramics',
+  textiles: 'Textiles',
+  lighting: 'Lighting',
+  decor: 'Objects',
+};
+
+const CARE_NOTES: Record<string, string> = {
+  ceramics:
+    'Food-safe glazes where noted. Hand wash with warm water and mild soap, and avoid sudden temperature changes. Small variations in glaze and form are part of the making.',
+  textiles:
+    'Gentle machine wash cold on its own, then line dry in the shade. Natural dyes may soften with time. Warm iron on the reverse if needed.',
+  lighting:
+    'Dust with a dry cloth. Use a warm LED bulb. Hardwired pieces should be fitted by a qualified electrician.',
+  decor:
+    'Dust gently with a dry cloth. Keep brass and wood away from prolonged moisture so their natural patina develops evenly.',
+};
 
 interface ProductPageProps {
   params: {
@@ -27,7 +45,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 
   return {
-    title: `${product.name} – Mati Living`,
+    title: `${product.name}`,
     description: product.description.slice(0, 160),
     openGraph: {
       title: `${product.name} – Mati Living`,
@@ -45,111 +63,158 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   const relatedProducts = await getRelatedProducts(product.category, product.slug, 4);
+  const categoryLabel =
+    CATEGORY_LABELS[product.category.toLowerCase()] ??
+    product.category.charAt(0).toUpperCase() + product.category.slice(1);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
-      {/* Breadcrumb Navigation */}
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-stone-500">
-        <Link href="/" className="hover:text-stone-900 transition-colors">
+        <Link href="/" className="rounded transition-colors hover:text-stone-900">
           Home
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-        <Link href="/products" className="hover:text-stone-900 transition-colors">
-          Catalog
+        <ChevronRight className="h-3.5 w-3.5 text-stone-400" aria-hidden="true" />
+        <Link href="/products" className="rounded transition-colors hover:text-stone-900">
+          Collection
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+        <ChevronRight className="h-3.5 w-3.5 text-stone-400" aria-hidden="true" />
         <Link
           href={`/products?category=${product.category}`}
-          className="capitalize hover:text-stone-900 transition-colors"
+          className="rounded transition-colors hover:text-stone-900"
         >
-          {product.category}
+          {categoryLabel}
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-        <span className="font-semibold text-stone-900 truncate max-w-xs">{product.name}</span>
+        <ChevronRight className="hidden h-3.5 w-3.5 text-stone-400 sm:block" aria-hidden="true" />
+        <span
+          aria-current="page"
+          className="hidden max-w-[16rem] truncate font-semibold text-stone-900 sm:block"
+        >
+          {product.name}
+        </span>
       </nav>
 
-      {/* Main Product Showcase Section */}
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-        {/* Left: Product Media Gallery */}
-        <div className="lg:col-span-6">
-          <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-stone-200/80 bg-white p-2 shadow-sm">
-            <div className="relative h-full w-full overflow-hidden rounded-2xl bg-stone-50">
-              <Image
-                src={product.image_url}
-                alt={product.name}
-                fill
-                priority
-                sizes="(min-width: 1024px) 550px, 90vw"
-                className="object-cover"
-              />
-            </div>
+      {/* Product */}
+      <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+        {/* Media */}
+        <div className="lg:col-span-7">
+          <div className="relative aspect-square w-full overflow-hidden rounded-[2rem] bg-stone-100">
+            <Image
+              src={product.image_url}
+              alt={product.name}
+              fill
+              priority
+              sizes="(min-width: 1024px) 58vw, 92vw"
+              className="object-cover"
+            />
           </div>
+          <p className="mt-3 text-center text-[11px] text-stone-500 sm:text-left">
+            Every piece is finished by hand, so subtle variations are expected and celebrated.
+          </p>
         </div>
 
-        {/* Right: Product Details & Purchase Actions */}
-        <div className="flex flex-col justify-center space-y-6 lg:col-span-6">
-          <div className="space-y-3">
-            <span className="inline-block rounded-full bg-amber-900 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-50">
-              {product.category}
-            </span>
+        {/* Details */}
+        <div className="lg:col-span-5">
+          <div className="lg:sticky lg:top-28">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-amber-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-50">
+                {categoryLabel}
+              </span>
+              <RatingStars rating={product.rating} size="md" />
+            </div>
 
-            <h1 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl lg:text-4xl leading-tight">
+            <h1 className="mt-4 font-display text-3xl font-medium leading-tight tracking-tight text-stone-900 text-balance sm:text-4xl lg:text-[2.75rem]">
               {product.name}
             </h1>
 
-            <div className="flex items-center gap-4">
-              <RatingStars rating={product.rating} size="md" />
-              <span className="text-xs text-stone-400">|</span>
-              <span className="text-xs font-medium text-stone-500">
-                Verified Customer Feedback
-              </span>
+            <p className="mt-4 text-sm leading-relaxed text-stone-600 text-pretty sm:text-base">
+              {product.description}
+            </p>
+
+            <div className="mt-6 border-y border-stone-200 py-4">
+              <div className="flex items-baseline gap-3">
+                <span className="text-3xl font-semibold tabular-nums text-stone-900">
+                  {formatCurrency(product.price)}
+                </span>
+                <span className="text-xs text-stone-500">Inclusive of GST</span>
+              </div>
+              <p className="mt-1 text-xs text-stone-500">
+                Free express delivery over ₹999 · 7-day returns
+              </p>
+            </div>
+
+            <div className="mt-6">
+              <ProductDetailActions product={product} />
+            </div>
+
+            {/* Craft & care */}
+            <div className="mt-8 divide-y divide-stone-200 border-t border-stone-200">
+              <details className="group py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded text-sm font-semibold text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+                  Materials &amp; care
+                  <ChevronDown
+                    className="h-4 w-4 flex-shrink-0 text-stone-500 transition-transform duration-200 group-open:rotate-180 motion-reduce:transform-none"
+                    aria-hidden="true"
+                  />
+                </summary>
+                <p className="mt-2 pr-6 text-sm leading-relaxed text-stone-600">
+                  {CARE_NOTES[product.category.toLowerCase()] ??
+                    'Made by hand from natural materials. Wipe gently with a dry cloth and avoid harsh cleaners.'}
+                </p>
+              </details>
+
+              <details className="group py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded text-sm font-semibold text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+                  Shipping &amp; returns
+                  <ChevronDown
+                    className="h-4 w-4 flex-shrink-0 text-stone-500 transition-transform duration-200 group-open:rotate-180 motion-reduce:transform-none"
+                    aria-hidden="true"
+                  />
+                </summary>
+                <div className="mt-2 space-y-1.5 pr-6 text-sm leading-relaxed text-stone-600">
+                  <p>Dispatched within 1–2 working days. Express delivery in 2–4 working days.</p>
+                  <p>Free shipping on orders over ₹999; ₹99 below that.</p>
+                  <p>Seven-day returns in original packaging. Contact support@matiliving.in.</p>
+                </div>
+              </details>
+
+              <details className="group py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded text-sm font-semibold text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+                  How it&apos;s made
+                  <ChevronDown
+                    className="h-4 w-4 flex-shrink-0 text-stone-500 transition-transform duration-200 group-open:rotate-180 motion-reduce:transform-none"
+                    aria-hidden="true"
+                  />
+                </summary>
+                <p className="mt-2 pr-6 text-sm leading-relaxed text-stone-600">
+                  Sourced directly from small artisan workshops across India. Pieces are made in
+                  limited batches, which is why stock is often low and no two are exactly alike.
+                </p>
+              </details>
             </div>
           </div>
-
-          {/* Pricing display */}
-          <div className="border-t border-b border-stone-100 py-4">
-            <div className="flex items-baseline gap-3">
-              <span className="text-3xl font-extrabold tabular-nums text-stone-900">
-                {formatCurrency(product.price)}
-              </span>
-              <span className="text-xs text-stone-500">Inclusive of all taxes</span>
-            </div>
-          </div>
-
-          {/* Product Description */}
-          <div className="space-y-2">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-stone-900">
-              Overview
-            </h2>
-            <p className="text-sm leading-relaxed text-stone-600">{product.description}</p>
-          </div>
-
-          {/* Interactive Actions (Quantity, Stock status, Add to Cart) */}
-          <ProductDetailActions product={product} />
         </div>
       </div>
 
-      {/* Related Products Section */}
+      {/* Related */}
       {relatedProducts.length > 0 && (
-        <section className="border-t border-stone-200/80 pt-12 space-y-6">
-          <div className="flex items-center justify-between">
+        <section className="mt-20 border-t border-stone-200 pt-12">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-stone-900">
-                Related in {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+              <p className="eyebrow">Keep looking</p>
+              <h2 className="mt-3 font-display text-3xl font-medium tracking-tight text-stone-900">
+                More in {categoryLabel.toLowerCase()}
               </h2>
-              <p className="text-xs text-stone-500 mt-1">
-                Customers also viewed these curated recommendations.
-              </p>
             </div>
             <Link
               href={`/products?category=${product.category}`}
-              className="text-xs font-semibold text-amber-900 hover:text-amber-900"
+              className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-amber-900 hover:text-amber-700"
             >
-              See more <ChevronRight className="inline h-3.5 w-3.5" aria-hidden="true" />
+              See all <ChevronRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-6 lg:grid-cols-4">
             {relatedProducts.map((rel) => (
               <ProductCard key={rel.id} product={rel} />
             ))}
@@ -157,14 +222,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         </section>
       )}
 
-      {/* Back to all products button */}
-      <div className="pt-4">
+      <div className="mt-12">
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-stone-600 hover:text-stone-900"
+          className="inline-flex min-h-11 items-center gap-2 rounded text-sm font-semibold text-stone-600 transition-colors hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-          Back to all products
+          Back to all pieces
         </Link>
       </div>
     </div>

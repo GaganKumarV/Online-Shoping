@@ -4,32 +4,25 @@ import { FileQuestion, ArrowRight } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-7xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
-      <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-amber-900 text-amber-50 mb-6">
-        <FileQuestion className="h-10 w-10 stroke-1" aria-hidden="true" />
+    <div className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
+      <div className="mb-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-100/70 text-amber-900">
+        <FileQuestion className="h-7 w-7 stroke-1" aria-hidden="true" />
       </div>
-      <span className="text-xs font-bold uppercase tracking-wider text-amber-900">
-        404 Error
-      </span>
-      <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
-        Page Not Found
+      <p className="eyebrow">Error 404</p>
+      <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-stone-900 text-balance sm:text-5xl">
+        This page has gone missing
       </h1>
-      <p className="mt-3 max-w-md text-sm text-stone-500 leading-relaxed">
-        The product or page you are looking for may have been moved, removed, or is temporarily unavailable.
+      <p className="mt-4 text-sm leading-relaxed text-stone-600 text-pretty">
+        The piece or page you were looking for may have sold out, moved, or never existed. The
+        collection is still right here.
       </p>
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-        >
-          Return Home
-        </Link>
-        <Link
-          href="/products"
-          className="inline-flex items-center gap-2 rounded-xl border border-stone-200 bg-white px-5 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-50 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-        >
-          Browse All Products
+        <Link href="/products" className="btn-primary">
+          Browse the collection
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+        <Link href="/" className="btn-secondary">
+          Return home
         </Link>
       </div>
     </div>

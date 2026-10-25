@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import { PackageOpen } from 'lucide-react';
@@ -13,30 +11,30 @@ interface ProductGridProps {
 export function ProductGrid({ products }: ProductGridProps) {
   if (products.length === 0) {
     return (
-      <div className="flex min-h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-stone-300 bg-white p-12 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 text-stone-400 mb-4">
+      <div className="flex min-h-[420px] flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 bg-white/60 p-8 text-center sm:p-12">
+        <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 text-stone-500">
           <PackageOpen className="h-8 w-8 stroke-1" aria-hidden="true" />
         </div>
-        <h3 className="text-lg font-semibold text-stone-900">No products found</h3>
-        <p className="mt-1 max-w-sm text-sm text-stone-500">
-          We couldn&apos;t find any items matching your current filters. Try resetting or searching for different keywords.
+        <p className="eyebrow">Nothing here yet</p>
+        <h2 className="mt-2 font-display text-2xl font-medium text-stone-900">
+          No pieces match that search
+        </h2>
+        <p className="mt-2 max-w-sm text-sm leading-relaxed text-stone-500">
+          Try a different word, clear the category filter, or browse the full collection. The
+          right piece is probably a click away.
         </p>
-        <Link
-          href="/products"
-          className="mt-6 inline-flex items-center rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-        >
-          View All Products
+        <Link href="/products" className="btn-primary mt-6">
+          View all pieces
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
 }
-

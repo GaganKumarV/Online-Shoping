@@ -56,21 +56,21 @@ export default function OrderConfirmationPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 space-y-10">
-      {/* Success Hero Header */}
-      <div className="flex flex-col items-center text-center space-y-4 rounded-3xl border border-emerald-100 bg-gradient-to-b from-emerald-50/60 to-white p-8 sm:p-12 shadow-sm">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-500/30">
-          <CheckCircle2 className="h-10 w-10" aria-hidden="true" />
+      {/* Success hero */}
+      <div className="flex flex-col items-center space-y-5 rounded-3xl border border-stone-200 bg-gradient-to-b from-amber-50/70 to-white p-8 text-center shadow-sm sm:p-12">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-700 text-white shadow-lg shadow-emerald-900/15">
+          <CheckCircle2 className="h-8 w-8" aria-hidden="true" />
         </div>
 
-        <div className="space-y-1">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-            {order?.paymentMethod === 'cod' ? 'Order Confirmed' : 'Payment Verified & Confirmed'}
-          </span>
-          <h1 className="text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
-            Thank you for your purchase!
+        <div className="space-y-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-emerald-800">
+            {order?.paymentMethod === 'cod' ? 'Order confirmed' : 'Payment confirmed'}
+          </p>
+          <h1 className="font-display text-4xl font-medium tracking-tight text-stone-900 text-balance sm:text-5xl">
+            Thank you — it&apos;s on its way.
           </h1>
-          <p className="text-sm text-stone-600 max-w-md">
-            We&apos;ve received your order and our fulfillment team has started preparing your shipment.
+          <p className="mx-auto max-w-md text-sm leading-relaxed text-stone-600 text-pretty">
+            We&apos;ve received your order and our team has started packing it by hand.
           </p>
         </div>
 
@@ -100,23 +100,24 @@ export default function OrderConfirmationPage({
         </div>
       )}
 
-      {/* Order Tracking Progress Card */}
-      <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-4">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-stone-800">
-          Estimated Delivery
-        </h2>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl bg-stone-50 p-4">
+      {/* Delivery tracking */}
+      <div className="surface-card space-y-4 p-6 sm:p-7">
+        <div>
+          <p className="eyebrow">On the way</p>
+          <h2 className="mt-2 font-display text-xl font-medium text-stone-900">Estimated delivery</h2>
+        </div>
+        <div className="flex flex-col justify-between gap-4 rounded-xl bg-stone-50 p-4 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-900 text-white">
               <Truck className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
-              <p className="text-sm font-bold text-stone-900">Arriving in 2–4 Business Days</p>
-              <p className="text-xs text-stone-500">Express Delivery via Mati Express</p>
+              <p className="text-sm font-semibold text-stone-900">Arriving in 2–4 business days</p>
+              <p className="text-xs text-stone-500">Express delivery via Mati Express</p>
             </div>
           </div>
-          <span className="self-start sm:self-auto rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
-            Status: Confirmed & Packing
+          <span className="self-start rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800 sm:self-auto">
+            Confirmed & packing
           </span>
         </div>
       </div>
@@ -124,11 +125,11 @@ export default function OrderConfirmationPage({
       {/* Detailed Order Breakdown */}
       {order && (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
-          {/* Purchased Items List */}
-          <div className="md:col-span-7 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-4">
-            <h2 className="text-base font-bold text-stone-900 flex items-center gap-2">
-              <Package className="h-5 w-5 text-amber-900" aria-hidden="true" />
-              <span>Purchased Items ({order.items.length})</span>
+          {/* Purchased items */}
+          <div className="surface-card space-y-4 p-6 md:col-span-7">
+            <h2 className="flex items-center gap-2 font-display text-xl font-medium text-stone-900">
+              <Package className="h-5 w-5 text-amber-800" aria-hidden="true" />
+              <span>Your pieces ({order.items.length})</span>
             </h2>
 
             <div className="divide-y divide-stone-100">
@@ -156,41 +157,43 @@ export default function OrderConfirmationPage({
               ))}
             </div>
 
-            {/* Financial summary */}
-            <div className="border-t border-stone-100 pt-4 space-y-2 text-xs text-stone-600">
-              <div className="flex justify-between">
+            {/* Totals */}
+            <div className="space-y-2.5 border-t border-stone-100 pt-4 text-xs text-stone-600">
+              <div className="flex justify-between gap-4">
                 <span>Subtotal</span>
-                <span className="font-semibold text-stone-900 tabular-nums">
+                <span className="font-medium tabular-nums text-stone-900">
                   {formatCurrency(order.subtotal)}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>Shipping</span>
-                <span className="font-semibold text-emerald-600">
-                  {order.shipping === 0 ? 'FREE' : formatCurrency(order.shipping)}
+              <div className="flex justify-between gap-4">
+                <span>Delivery</span>
+                <span className="font-medium tabular-nums text-emerald-700">
+                  {order.shipping === 0 ? 'Free' : formatCurrency(order.shipping)}
                 </span>
               </div>
-              <div className="flex items-baseline justify-between border-t border-stone-200 pt-2 text-sm font-bold text-stone-900">
-                <span>{order.paymentMethod === 'cod' ? 'Total Due' : 'Total Paid'}</span>
-                <span className="text-base tabular-nums text-amber-900">
+              <div className="flex items-baseline justify-between gap-4 border-t border-stone-200 pt-3">
+                <span className="text-sm font-semibold text-stone-900">
+                  {order.paymentMethod === 'cod' ? 'Total due' : 'Total paid'}
+                </span>
+                <span className="font-display text-xl font-medium tabular-nums text-stone-900">
                   {formatCurrency(order.total)}
                 </span>
               </div>
               <p className="text-right text-[11px] text-stone-500">
-                Includes {formatCurrency(order.tax)} GST (18%)
+                Inclusive of all taxes · {formatCurrency(order.tax)} GST
               </p>
             </div>
           </div>
 
-          {/* Delivery & Payment Metadata */}
-          <div className="md:col-span-5 space-y-6">
-            <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-4">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-stone-800 flex items-center gap-1.5">
+          {/* Delivery & payment metadata */}
+          <div className="space-y-6 md:col-span-5">
+            <div className="surface-card space-y-3 p-6">
+              <h2 className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-500">
                 <MapPin className="h-4 w-4 text-stone-400" aria-hidden="true" />
-                <span>Delivery Address</span>
+                <span>Delivery address</span>
               </h2>
-              <div className="text-xs text-stone-600 leading-relaxed">
-                <p className="font-bold text-stone-900 text-sm">{order.shippingAddress.fullName}</p>
+              <div className="text-xs leading-relaxed text-stone-600">
+                <p className="text-sm font-semibold text-stone-900">{order.shippingAddress.fullName}</p>
                 <p className="mt-1">{order.shippingAddress.streetAddress}</p>
                 <p>
                   {order.shippingAddress.city}, {order.shippingAddress.state} – {order.shippingAddress.postalCode}
@@ -200,24 +203,24 @@ export default function OrderConfirmationPage({
               </div>
             </div>
 
-            <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-2">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-stone-800 flex items-center gap-1.5">
+            <div className="surface-card space-y-3 p-6">
+              <h2 className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-500">
                 <CreditCard className="h-4 w-4 text-stone-400" aria-hidden="true" />
-                <span>Payment Method</span>
+                <span>Payment</span>
               </h2>
-              <p className="text-xs font-semibold text-stone-800 capitalize">
+              <p className="text-sm font-semibold text-stone-900">
                 {order.paymentMethod === 'card'
-                  ? 'Credit / Debit Card'
+                  ? 'Credit / debit card'
                   : order.paymentMethod === 'upi'
-                  ? 'UPI Instant Transfer'
+                  ? 'UPI instant transfer'
                   : order.paymentMethod === 'netbanking'
-                  ? 'Internet Banking'
-                  : 'Cash on Delivery'}
+                  ? 'Internet banking'
+                  : 'Cash on delivery'}
               </p>
-              <p className="text-[11px] text-emerald-600 font-medium">
+              <p className="text-[11px] font-medium text-emerald-700">
                 {order.paymentMethod === 'cod'
                   ? `Pay ${formatCurrency(order.total)} on delivery`
-                  : '✓ Transaction Authorized'}
+                  : '✓ Transaction authorized'}
               </p>
             </div>
           </div>
@@ -226,20 +229,13 @@ export default function OrderConfirmationPage({
 
       {/* Actions: Continue Shopping & Print Receipt */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-stone-200 pt-8">
-        <button
-          type="button"
-          onClick={() => window.print()}
-          className="inline-flex items-center gap-2 rounded-xl border border-stone-200 bg-white px-5 py-2.5 text-xs font-semibold text-stone-700 hover:bg-stone-50 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-        >
+        <button type="button" onClick={() => window.print()} className="btn-secondary text-xs">
           <Printer className="h-4 w-4" aria-hidden="true" />
-          Print Order Receipt
+          Print receipt
         </button>
 
-        <Link
-          href="/products"
-          className="inline-flex items-center gap-2 rounded-xl bg-amber-900 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-amber-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-        >
-          Continue Shopping
+        <Link href="/products" className="btn-primary">
+          Continue shopping
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>

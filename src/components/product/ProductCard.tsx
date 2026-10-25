@@ -30,12 +30,18 @@ export function ProductCard({ product }: ProductCardProps) {
     }
   };
 
+  const buttonLabel = isOutOfStock
+    ? `${product.name} is out of stock`
+    : isMaxInCart
+      ? `Maximum stock of ${product.name} is already in your bag`
+      : `Add ${product.name} to bag`;
+
   return (
-    <div className="group relative flex flex-col rounded-2xl border border-stone-200/90 bg-white p-4 transition duration-200 hover:border-stone-300 hover:shadow-xl hover:shadow-stone-200/50">
-      {/* Product Image */}
+    <article className="group flex flex-col">
+      {/* Product image */}
       <Link
         href={`/products/${product.slug}`}
-        className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
+        className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-4"
         tabIndex={-1}
         aria-hidden="true"
       >
@@ -43,54 +49,46 @@ export function ProductCard({ product }: ProductCardProps) {
           src={product.image_url}
           alt={product.name}
           fill
-          sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none"
+          sizes="(min-width: 1280px) 300px, (min-width: 1024px) 25vw, (min-width: 640px) 45vw, 46vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transform-none"
         />
 
-        {/* Category Pill */}
-        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-stone-800 shadow-sm backdrop-blur-md">
-          {product.category}
-        </span>
-
-        {/* Stock Badge */}
         {isOutOfStock ? (
-          <span className="absolute bottom-3 left-3 rounded-md bg-rose-600 px-2 py-0.5 text-xs font-semibold text-white shadow-sm">
-            Out of Stock
+          <span className="absolute bottom-3 left-3 rounded-full bg-stone-900/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
+            Sold out
           </span>
         ) : isLowStock ? (
-          <span className="absolute bottom-3 left-3 rounded-md bg-amber-500 px-2 py-0.5 text-xs font-semibold text-white shadow-sm">
+          <span className="absolute bottom-3 left-3 rounded-full bg-[#faf8f5]/95 px-2.5 py-1 text-[11px] font-semibold text-amber-900 backdrop-blur-sm">
             Only {product.stock} left
           </span>
         ) : null}
       </Link>
 
-      {/* Content */}
-      <div className="flex flex-1 flex-col justify-between">
-        <div>
-          {/* Rating */}
-          <div className="mb-2">
-            <RatingStars rating={product.rating} size="sm" />
-          </div>
-
-          {/* Title */}
-          <h3 className="text-sm font-semibold text-stone-900 group-hover:text-amber-900 transition-colors line-clamp-2 leading-snug">
-            <Link
-              href={`/products/${product.slug}`}
-              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 rounded"
-            >
-              {product.name}
-            </Link>
-          </h3>
-
-          <p className="mt-1 text-xs text-stone-500 line-clamp-2">{product.description}</p>
+      {/* Details */}
+      <div className="flex flex-1 flex-col pt-3">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-800">
+            {product.category}
+          </p>
+          <RatingStars rating={product.rating} size="sm" showValue={false} />
         </div>
 
-        {/* Price & Add to Cart button */}
-        <div className="mt-4 flex items-center justify-between border-t border-stone-100 pt-3">
-          <div className="flex flex-col">
-            <span className="text-xs font-medium text-stone-500">Price</span>
-            <span className="text-base font-bold tabular-nums text-stone-900">
+        <h3 className="mt-1.5 text-sm font-semibold leading-snug text-stone-900">
+          <Link
+            href={`/products/${product.slug}`}
+            className="line-clamp-2 rounded transition-colors hover:text-amber-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
+          >
+            {product.name}
+          </Link>
+        </h3>
+
+        <div className="mt-auto flex items-end justify-between gap-2 pt-4">
+          <div>
+            <span className="block text-base font-semibold tabular-nums text-stone-900">
               {formatCurrency(product.price)}
+            </span>
+            <span className="mt-0.5 block text-[11px] text-stone-500">
+              {isOutOfStock ? 'Restocking soon' : 'Inclusive of GST'}
             </span>
           </div>
 
@@ -98,36 +96,23 @@ export function ProductCard({ product }: ProductCardProps) {
             type="button"
             onClick={handleAddToCart}
             disabled={isOutOfStock || isMaxInCart}
-            aria-label={
-              isOutOfStock
-                ? `${product.name} is out of stock`
-                : isMaxInCart
-                ? `Max stock (${product.stock}) of ${product.name} in cart`
-                : `Add ${product.name} to cart`
-            }
-            className={`inline-flex h-11 items-center justify-center gap-1.5 rounded-xl px-4 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 ${
+            aria-label={buttonLabel}
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 ${
               isOutOfStock
                 ? 'cursor-not-allowed bg-stone-100 text-stone-400'
                 : isMaxInCart
-                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                : 'bg-amber-900 text-white hover:bg-amber-800 active:scale-95 motion-reduce:transform-none'
+                  ? 'border border-emerald-200 bg-emerald-50 text-emerald-700'
+                  : 'bg-amber-900 text-white hover:bg-amber-800'
             }`}
           >
             {isMaxInCart ? (
-              <>
-                <Check className="h-3.5 w-3.5 text-emerald-600" aria-hidden="true" />
-                <span>In Cart ({currentInCart})</span>
-              </>
+              <Check className="h-4 w-4" aria-hidden="true" />
             ) : (
-              <>
-                <ShoppingBag className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>Add</span>
-              </>
+              <ShoppingBag className="h-4 w-4" aria-hidden="true" />
             )}
           </button>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
-

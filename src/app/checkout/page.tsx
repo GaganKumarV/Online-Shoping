@@ -185,14 +185,16 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-stone-900">Your cart is empty</h1>
-        <p className="mt-2 text-sm text-stone-500">Add products to your cart before checking out.</p>
-        <Link
-          href="/products"
-          className="mt-6 inline-flex rounded-xl bg-amber-900 px-6 py-2.5 text-sm font-semibold text-white"
-        >
-          Browse Catalog
+      <div className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center px-4 py-16 text-center">
+        <p className="eyebrow">Checkout</p>
+        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-stone-900 text-balance">
+          Nothing to check out yet
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-stone-600">
+          Add a piece to your basket and we&apos;ll have it packed and on its way.
+        </p>
+        <Link href="/products" className="btn-primary mt-8">
+          Browse the collection
         </Link>
       </div>
     );
@@ -200,22 +202,23 @@ export default function CheckoutPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
-      {/* Checkout Header */}
-      <div className="flex items-center gap-4 border-b border-stone-200 pb-5">
+      {/* Checkout header */}
+      <div className="flex items-start gap-4 border-b border-stone-200 pb-6">
         <Link
           href="/cart"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-stone-300 text-stone-600 hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
-          aria-label="Back to Cart"
+          className="inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-stone-300 text-stone-600 transition-colors hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
+          aria-label="Back to basket"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         </Link>
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-stone-900 sm:text-3xl">
-            Secure Checkout
+          <p className="eyebrow">Almost yours</p>
+          <h1 className="mt-2 font-display text-3xl font-medium tracking-tight text-stone-900 sm:text-4xl">
+            Checkout
           </h1>
-          <p className="text-xs text-stone-500 flex items-center gap-1.5 mt-0.5">
-            <Lock className="h-3 w-3 text-emerald-600" aria-hidden="true" />
-            256-bit encrypted checkout session
+          <p className="mt-1.5 flex items-center gap-1.5 text-xs text-stone-500">
+            <Lock className="h-3.5 w-3.5 text-emerald-700" aria-hidden="true" />
+            Encrypted checkout · Your details stay private
           </p>
         </div>
       </div>
@@ -235,16 +238,18 @@ export default function CheckoutPage() {
             </div>
           </div>
         )}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
-          {/* Form Left: Shipping & Payment */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
+          {/* Form left: shipping & payment */}
           <div className="space-y-8 lg:col-span-7">
-            {/* 1. Contact & Shipping Address */}
-            <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-4">
-              <div className="flex items-center gap-2 border-b border-stone-100 pb-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-900 text-xs font-bold text-white">
+            {/* 1. Contact & shipping address */}
+            <section className="surface-card space-y-5 p-6 sm:p-7">
+              <div className="flex items-center gap-2.5 border-b border-stone-100 pb-4">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-900 text-[11px] font-semibold text-white">
                   1
                 </span>
-                <h2 className="text-lg font-bold text-stone-900">Delivery Address</h2>
+                <h2 className="font-display text-xl font-medium text-stone-900">
+                  Delivery address
+                </h2>
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -408,17 +413,19 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {/* 2. Payment Method (Mock Payment / Stripe ready) */}
-            <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-4">
-              <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-900 text-xs font-bold text-white">
+            {/* 2. Payment method (mock flow, Stripe-ready) */}
+            <section className="surface-card space-y-5 p-6 sm:p-7">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-100 pb-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-900 text-[11px] font-semibold text-white">
                     2
                   </span>
-                  <h2 className="text-lg font-bold text-stone-900">Payment Option</h2>
+                  <h2 className="font-display text-xl font-medium text-stone-900">
+                    Payment
+                  </h2>
                 </div>
-                <span className="rounded-md bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-800 border border-amber-200">
-                  Mock Mode (Test Flow)
+                <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-800">
+                  Test mode
                 </span>
               </div>
 
@@ -593,10 +600,10 @@ export default function CheckoutPage() {
             </section>
           </div>
 
-          {/* Form Right: Order Items & Payment Action */}
+          {/* Form right: order summary & primary action */}
           <div className="space-y-6 lg:col-span-5">
-            <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm space-y-6 sticky top-24">
-              <h2 className="text-lg font-bold text-stone-900">Order Summary</h2>
+            <div className="surface-card sticky top-24 space-y-6 p-6 sm:p-7">
+              <h2 className="font-display text-2xl font-medium text-stone-900">Order summary</h2>
 
               {/* Items Preview */}
               <div className="max-h-60 overflow-y-auto space-y-3 divide-y divide-stone-100 pr-1">
@@ -622,40 +629,40 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              {/* Totals Breakdown */}
-              <div className="space-y-2 border-t border-stone-200 pt-4 text-sm text-stone-600">
-                <div className="flex justify-between">
+              {/* Totals */}
+              <div className="space-y-2.5 border-t border-stone-200 pt-4 text-sm text-stone-600">
+                <div className="flex justify-between gap-4">
                   <span>Subtotal</span>
-                  <span className="font-semibold tabular-nums text-stone-900">
+                  <span className="font-medium tabular-nums text-stone-900">
                     {formatCurrency(subtotal)}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Shipping</span>
+                <div className="flex justify-between gap-4">
+                  <span>Delivery</span>
                   <span className="font-medium tabular-nums text-stone-900">
                     {shipping === 0 ? (
-                      <span className="text-emerald-600 font-semibold">FREE</span>
+                      <span className="font-semibold text-emerald-700">Free</span>
                     ) : (
                       formatCurrency(shipping)
                     )}
                   </span>
                 </div>
-                <div className="flex items-baseline justify-between border-t border-stone-200 pt-3 text-base font-bold text-stone-900">
-                  <span>Total Amount</span>
-                  <span className="text-xl tabular-nums text-amber-900">
+                <div className="flex items-baseline justify-between gap-4 border-t border-stone-200 pt-4">
+                  <span className="text-base font-semibold text-stone-900">Total</span>
+                  <span className="font-display text-2xl font-medium tabular-nums text-stone-900">
                     {formatCurrency(total)}
                   </span>
                 </div>
                 <p className="text-right text-xs text-stone-500">
-                  Includes {formatCurrency(tax)} GST (18%)
+                  Inclusive of all taxes · {formatCurrency(tax)} GST
                 </p>
               </div>
 
-              {/* Place Order CTA Button */}
+              {/* Place order */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-amber-900 px-6 py-4 text-base font-bold text-white shadow-lg shadow-amber-900/25 transition-colors hover:bg-amber-800 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 motion-reduce:transform-none"
+                className="btn-primary min-h-[52px] w-full py-4 text-base disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <>

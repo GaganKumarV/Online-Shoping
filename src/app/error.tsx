@@ -16,30 +16,27 @@ export default function ErrorBoundary({
   }, [error]);
 
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-7xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 mb-6">
-        <AlertTriangle className="h-8 w-8 stroke-1" aria-hidden="true" />
+    <div className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
+      <div className="mb-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-50 text-rose-700">
+        <AlertTriangle className="h-7 w-7 stroke-1" aria-hidden="true" />
       </div>
-      <h1 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-rose-700">
         Something went wrong
-      </h1>
-      <p className="mt-2 max-w-md text-sm text-stone-500">
-        We encountered an unexpected issue while loading this page. Our team has been notified.
       </p>
-      <div className="mt-6 flex items-center justify-center gap-3">
-        <button
-          type="button"
-          onClick={() => reset()}
-          className="inline-flex items-center gap-2 rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-        >
+      <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-stone-900 text-balance">
+        We hit a small snag
+      </h1>
+      <p className="mt-4 text-sm leading-relaxed text-stone-600 text-pretty">
+        This page couldn&apos;t load just now. Try again — your basket is safe and nothing has been
+        charged.
+      </p>
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <button type="button" onClick={() => reset()} className="btn-primary">
           <RotateCcw className="h-4 w-4" aria-hidden="true" />
-          Try Again
+          Try again
         </button>
-        <Link
-          href="/"
-          className="inline-flex items-center rounded-xl border border-stone-200 bg-white px-5 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
-        >
-          Go to Homepage
+        <Link href="/" className="btn-secondary">
+          Go to homepage
         </Link>
       </div>
     </div>

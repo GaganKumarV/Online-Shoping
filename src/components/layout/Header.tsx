@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShoppingBag, Search, Menu, X, Compass } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Leaf } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 
 export function Header() {
@@ -39,7 +39,7 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full border-b border-stone-200/80 bg-[#faf8f5]/95 backdrop-blur-md transition-shadow">
       {/* Top Announcement Bar */}
       <div className="bg-stone-900 px-4 py-1.5 text-center text-xs font-medium text-stone-200">
-        <span>Artisan-made in India • Complimentary express shipping over ₹999</span>
+        <span className="tracking-wide">Handmade in India · Free express shipping over ₹999</span>
       </div>
 
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -50,9 +50,9 @@ export function Header() {
             className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-stone-900 transition-colors hover:text-amber-900 focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 focus-visible:ring-offset-2"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-900 text-amber-50 shadow-sm">
-              <Compass className="h-5 w-5" aria-hidden="true" />
+              <Leaf className="h-5 w-5" aria-hidden="true" />
             </div>
-            <span className="font-serif tracking-tight text-xl font-extrabold text-stone-900">
+            <span className="font-display text-2xl font-medium tracking-tight text-stone-900">
               Mati <span className="font-sans text-xs font-semibold uppercase tracking-widest text-amber-800">Living</span>
             </span>
           </Link>
