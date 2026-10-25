@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #faf8f5;
+  --foreground: #1c1917;
+  /* Brand tokens */
+  --color-brand: #78350f; /* amber-900 */
+  --color-brand-hover: #92400e; /* amber-800 */
+  --color-surface: #ffffff;
+  --color-muted: #78716c; /* stone-500 */
+  --color-border: #e7e5e4; /* stone-200 */
 }
 
 body {
@@ -12,15 +18,49 @@ body {
   background: var(--background);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Respect reduced motion: stop looping/entrance animation, keep state feedback fast.
+   Transform-based hover/entrance motion is opted out per-element with motion-reduce. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  /* Keep the loading spinner readable as a progress signal. */
+  .animate-spin {
+    animation-duration: 1.4s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-2xl border border-stone-200/80 bg-white shadow-sm;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  .text-pretty {
+    text-wrap: pretty;
+  }
 }
 
 /* Tabular figures for aligned pricing numbers */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+/* Smooth focus ring for keyboard nav */
+:focus-visible {
+  outline-offset: 2px;
 }

@@ -14,7 +14,7 @@ export function Footer() {
                 <Truck className="h-6 w-6" aria-hidden="true" />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-white">Free Express Shipping</h4>
+                <p className="text-sm font-semibold text-white">Free Express Shipping</p>
                 <p className="text-xs text-stone-400">On all prepaid orders over ₹999</p>
               </div>
             </div>
@@ -24,7 +24,7 @@ export function Footer() {
                 <ShieldCheck className="h-6 w-6" aria-hidden="true" />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-white">100% Handmade Guarantee</h4>
+                <p className="text-sm font-semibold text-white">100% Handmade Guarantee</p>
                 <p className="text-xs text-stone-400">Sourced directly from artisans</p>
               </div>
             </div>
@@ -34,7 +34,7 @@ export function Footer() {
                 <RotateCcw className="h-6 w-6" aria-hidden="true" />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-white">7-Day Easy Returns</h4>
+                <p className="text-sm font-semibold text-white">7-Day Easy Returns</p>
                 <p className="text-xs text-stone-400">Hassle-free return policy</p>
               </div>
             </div>
@@ -44,7 +44,7 @@ export function Footer() {
                 <CreditCard className="h-6 w-6" aria-hidden="true" />
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-white">Secure Payments</h4>
+                <p className="text-sm font-semibold text-white">Secure Payments</p>
                 <p className="text-xs text-stone-400">UPI, Cards, NetBanking, COD</p>
               </div>
             </div>
@@ -130,12 +130,12 @@ export function Footer() {
               Have questions or need assistance with your order?
             </p>
             <p className="mt-2 text-sm font-medium text-white">support@matiliving.in</p>
-            <p className="mt-1 text-xs text-stone-500">Available Mon–Sat, 9:00 AM – 7:00 PM IST</p>
+            <p className="mt-1 text-xs text-stone-400">Available Mon–Sat, 9:00 AM – 7:00 PM IST</p>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 border-t border-stone-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+        <div className="mt-12 border-t border-stone-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
           <p>© {new Date().getFullYear()} Mati Living. All rights reserved.</p>
           <div className="flex items-center gap-3">
             <span className="rounded bg-stone-800 px-2 py-1 text-stone-400">UPI</span>

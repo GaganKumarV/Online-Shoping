@@ -49,31 +49,31 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
       {/* Breadcrumb Navigation */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-500">
-        <Link href="/" className="hover:text-slate-900 transition-colors">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-stone-500">
+        <Link href="/" className="hover:text-stone-900 transition-colors">
           Home
         </Link>
         <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-        <Link href="/products" className="hover:text-slate-900 transition-colors">
+        <Link href="/products" className="hover:text-stone-900 transition-colors">
           Catalog
         </Link>
         <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
         <Link
           href={`/products?category=${product.category}`}
-          className="capitalize hover:text-slate-900 transition-colors"
+          className="capitalize hover:text-stone-900 transition-colors"
         >
           {product.category}
         </Link>
         <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-        <span className="font-semibold text-slate-900 truncate max-w-xs">{product.name}</span>
+        <span className="font-semibold text-stone-900 truncate max-w-xs">{product.name}</span>
       </nav>
 
       {/* Main Product Showcase Section */}
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
         {/* Left: Product Media Gallery */}
         <div className="lg:col-span-6">
-          <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-2 shadow-sm">
-            <div className="relative h-full w-full overflow-hidden rounded-2xl bg-slate-50">
+          <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-stone-200/80 bg-white p-2 shadow-sm">
+            <div className="relative h-full w-full overflow-hidden rounded-2xl bg-stone-50">
               <Image
                 src={product.image_url}
                 alt={product.name}
@@ -89,39 +89,39 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         {/* Right: Product Details & Purchase Actions */}
         <div className="flex flex-col justify-center space-y-6 lg:col-span-6">
           <div className="space-y-3">
-            <span className="inline-block rounded-full bg-amber-900 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-900">
+            <span className="inline-block rounded-full bg-amber-900 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-50">
               {product.category}
             </span>
 
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl leading-tight">
+            <h1 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl lg:text-4xl leading-tight">
               {product.name}
             </h1>
 
             <div className="flex items-center gap-4">
               <RatingStars rating={product.rating} size="md" />
-              <span className="text-xs text-slate-400">|</span>
-              <span className="text-xs font-medium text-slate-500">
+              <span className="text-xs text-stone-400">|</span>
+              <span className="text-xs font-medium text-stone-500">
                 Verified Customer Feedback
               </span>
             </div>
           </div>
 
           {/* Pricing display */}
-          <div className="border-t border-b border-slate-100 py-4">
+          <div className="border-t border-b border-stone-100 py-4">
             <div className="flex items-baseline gap-3">
-              <span className="text-3xl font-extrabold tabular-nums text-slate-900">
+              <span className="text-3xl font-extrabold tabular-nums text-stone-900">
                 {formatCurrency(product.price)}
               </span>
-              <span className="text-xs text-slate-400">Inclusive of all taxes</span>
+              <span className="text-xs text-stone-500">Inclusive of all taxes</span>
             </div>
           </div>
 
           {/* Product Description */}
           <div className="space-y-2">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-900">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-stone-900">
               Overview
             </h2>
-            <p className="text-sm leading-relaxed text-slate-600">{product.description}</p>
+            <p className="text-sm leading-relaxed text-stone-600">{product.description}</p>
           </div>
 
           {/* Interactive Actions (Quantity, Stock status, Add to Cart) */}
@@ -131,13 +131,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
       {/* Related Products Section */}
       {relatedProducts.length > 0 && (
-        <section className="border-t border-slate-200/80 pt-12 space-y-6">
+        <section className="border-t border-stone-200/80 pt-12 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-slate-900">
+              <h2 className="text-2xl font-bold tracking-tight text-stone-900">
                 Related in {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
               </h2>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-stone-500 mt-1">
                 Customers also viewed these curated recommendations.
               </p>
             </div>
@@ -161,7 +161,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <div className="pt-4">
         <Link
           href="/products"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-stone-600 hover:text-stone-900"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Back to all products

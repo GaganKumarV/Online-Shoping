@@ -31,11 +31,11 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="group relative flex flex-col rounded-2xl border border-slate-200/90 bg-white p-4 transition duration-200 hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/50">
+    <div className="group relative flex flex-col rounded-2xl border border-stone-200/90 bg-white p-4 transition duration-200 hover:border-stone-300 hover:shadow-xl hover:shadow-stone-200/50">
       {/* Product Image */}
       <Link
         href={`/products/${product.slug}`}
-        className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
+        className="relative mb-4 aspect-square w-full overflow-hidden rounded-xl bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
         tabIndex={-1}
         aria-hidden="true"
       >
@@ -44,11 +44,11 @@ export function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           fill
           sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none"
         />
 
         {/* Category Pill */}
-        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-800 shadow-sm backdrop-blur-md">
+        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-stone-800 shadow-sm backdrop-blur-md">
           {product.category}
         </span>
 
@@ -73,7 +73,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-sm font-semibold text-slate-900 group-hover:text-amber-900 transition-colors line-clamp-2 leading-snug">
+          <h3 className="text-sm font-semibold text-stone-900 group-hover:text-amber-900 transition-colors line-clamp-2 leading-snug">
             <Link
               href={`/products/${product.slug}`}
               className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 rounded"
@@ -82,14 +82,14 @@ export function ProductCard({ product }: ProductCardProps) {
             </Link>
           </h3>
 
-          <p className="mt-1 text-xs text-slate-500 line-clamp-2">{product.description}</p>
+          <p className="mt-1 text-xs text-stone-500 line-clamp-2">{product.description}</p>
         </div>
 
         {/* Price & Add to Cart button */}
-        <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
+        <div className="mt-4 flex items-center justify-between border-t border-stone-100 pt-3">
           <div className="flex flex-col">
-            <span className="text-xs font-medium text-slate-400">Price</span>
-            <span className="text-base font-bold tabular-nums text-slate-900">
+            <span className="text-xs font-medium text-stone-500">Price</span>
+            <span className="text-base font-bold tabular-nums text-stone-900">
               {formatCurrency(product.price)}
             </span>
           </div>
@@ -105,12 +105,12 @@ export function ProductCard({ product }: ProductCardProps) {
                 ? `Max stock (${product.stock}) of ${product.name} in cart`
                 : `Add ${product.name} to cart`
             }
-            className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-xl px-3.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 ${
+            className={`inline-flex h-11 items-center justify-center gap-1.5 rounded-xl px-4 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2 ${
               isOutOfStock
-                ? 'cursor-not-allowed bg-slate-100 text-slate-400'
+                ? 'cursor-not-allowed bg-stone-100 text-stone-400'
                 : isMaxInCart
                 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                : 'bg-slate-900 text-white hover:bg-amber-900 active:scale-95'
+                : 'bg-amber-900 text-white hover:bg-amber-800 active:scale-95 motion-reduce:transform-none'
             }`}
           >
             {isMaxInCart ? (

@@ -23,7 +23,8 @@ interface CartContextValue extends CartCalculation {
   dismissToast: () => void;
 }
 
-const CART_STORAGE_KEY = 'gdg_cart_v1';
+const CART_STORAGE_KEY = 'mati_cart_v1';
+const LEGACY_CART_STORAGE_KEY = 'gdg_cart_v1';
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
@@ -87,12 +88,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Load cart from localStorage on client mount
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      const stored =
+        localStorage.getItem(CART_STORAGE_KEY) ?? localStorage.getItem(LEGACY_CART_STORAGE_KEY);
+
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
           dispatch({ type: 'LOAD_CART', payload: parsed });
         }
+        // Migrate the pre-rebrand cart to the Mati Living key.
+        localStorage.setItem(CART_STORAGE_KEY, stored);
+        localStorage.removeItem(LEGACY_CART_STORAGE_KEY);
       }
     } catch (e) {
       console.warn('Failed to load cart from localStorage:', e);

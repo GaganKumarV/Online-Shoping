@@ -13,7 +13,7 @@ export function Toast() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-6 right-6 z-50 flex max-w-md items-center gap-3 rounded-xl bg-slate-900 px-4 py-3.5 text-white shadow-2xl ring-1 ring-white/10 transition-transform duration-200 animate-in fade-in slide-in-from-bottom-3"
+      className="fixed bottom-6 right-6 z-50 flex max-w-md items-center gap-3 rounded-xl bg-stone-900 px-4 py-3.5 text-white shadow-2xl ring-1 ring-white/10 animate-toast-in motion-reduce:animate-none"
     >
       <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-emerald-400" aria-hidden="true" />
       <p className="text-sm font-medium leading-snug">{toastMessage}</p>
@@ -21,7 +21,7 @@ export function Toast() {
         type="button"
         onClick={dismissToast}
         aria-label="Dismiss notification"
-        className="ml-auto inline-flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+        className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-lg text-stone-400 hover:bg-stone-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
       >
         <X className="h-4 w-4" aria-hidden="true" />
       </button>

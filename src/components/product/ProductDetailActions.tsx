@@ -49,7 +49,7 @@ export function ProductDetailActions({ product }: ProductDetailActionsProps) {
         </div>
       ) : (
         <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse motion-reduce:animate-none" />
           In Stock ({product.stock} units available)
         </div>
       )}
@@ -57,17 +57,17 @@ export function ProductDetailActions({ product }: ProductDetailActionsProps) {
       {!isOutOfStock && (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
           {/* Quantity Selector */}
-          <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-1">
+          <div className="flex items-center justify-between rounded-xl border border-stone-200 bg-white p-1">
             <button
               type="button"
               onClick={handleDecrease}
               disabled={quantity <= 1}
               aria-label="Decrease quantity"
-              className="flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-stone-600 hover:bg-stone-100 disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
             >
               <Minus className="h-4 w-4" aria-hidden="true" />
             </button>
-            <span className="w-12 text-center text-sm font-bold tabular-nums text-slate-900">
+            <span className="w-12 text-center text-sm font-bold tabular-nums text-stone-900">
               {quantity}
             </span>
             <button
@@ -75,7 +75,7 @@ export function ProductDetailActions({ product }: ProductDetailActionsProps) {
               onClick={handleIncrease}
               disabled={quantity >= remainingStock}
               aria-label="Increase quantity"
-              className="flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-stone-600 hover:bg-stone-100 disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
             >
               <Plus className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -86,7 +86,7 @@ export function ProductDetailActions({ product }: ProductDetailActionsProps) {
             type="button"
             onClick={handleAddToCart}
             disabled={remainingStock === 0 || quantity > remainingStock}
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-amber-900 active:scale-98 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
+            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-amber-900 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-amber-800 active:scale-[0.99] motion-reduce:transform-none disabled:cursor-not-allowed disabled:bg-stone-200 disabled:text-stone-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900 focus-visible:ring-offset-2"
           >
             {currentInCart > 0 ? (
               <>
@@ -104,7 +104,7 @@ export function ProductDetailActions({ product }: ProductDetailActionsProps) {
       )}
 
       {/* Trust & Guarantee points */}
-      <div className="grid grid-cols-1 gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-4 text-xs text-slate-600 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 rounded-2xl border border-stone-100 bg-stone-50 p-4 text-xs text-stone-600 sm:grid-cols-3">
         <div className="flex items-center gap-2">
           <Truck className="h-4 w-4 text-amber-900" aria-hidden="true" />
           <span>Express Delivery</span>

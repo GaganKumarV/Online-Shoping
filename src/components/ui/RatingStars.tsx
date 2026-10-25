@@ -19,18 +19,22 @@ export function RatingStars({ rating, showValue = true, size = 'sm' }: RatingSta
   }[size];
 
   return (
-    <div className="inline-flex items-center gap-1.5" aria-label={`Rating: ${rating.toFixed(1)} out of 5 stars`}>
+    <div
+      className="inline-flex items-center gap-1.5"
+      role="img"
+      aria-label={`Rated ${rating.toFixed(1)} out of 5 stars`}
+    >
       <div className="flex items-center text-amber-400">
         {[...Array(fullStars)].map((_, i) => (
           <Star key={`full-${i}`} className={`${sizeClasses} fill-amber-400`} aria-hidden="true" />
         ))}
         {hasHalfStar && <StarHalf className={`${sizeClasses} fill-amber-400`} aria-hidden="true" />}
         {[...Array(emptyStars)].map((_, i) => (
-          <Star key={`empty-${i}`} className={`${sizeClasses} text-slate-200 fill-slate-100`} aria-hidden="true" />
+          <Star key={`empty-${i}`} className={`${sizeClasses} text-stone-200 fill-stone-100`} aria-hidden="true" />
         ))}
       </div>
       {showValue && (
-        <span className="text-xs font-semibold tabular-nums text-slate-700">
+        <span className="text-xs font-semibold tabular-nums text-stone-700">
           {rating.toFixed(1)}
         </span>
       )}

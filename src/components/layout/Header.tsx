@@ -1,16 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ShoppingBag, Search, Menu, X, Compass } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 
 export function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const { itemCount, openDrawer } = useCart();
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Close the mobile menu on navigation or Escape.
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +49,7 @@ export function Header() {
             href="/"
             className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-stone-900 transition-colors hover:text-amber-900 focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 focus-visible:ring-offset-2"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-900 text-stone-100 shadow-sm">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-900 text-amber-50 shadow-sm">
               <Compass className="h-5 w-5" aria-hidden="true" />
             </div>
             <span className="font-serif tracking-tight text-xl font-extrabold text-stone-900">
@@ -95,7 +110,7 @@ export function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search vases, throws, lamps…"
               autoComplete="off"
-              className="w-full rounded-full border border-stone-200 bg-white/80 py-2 pl-9 pr-4 text-xs text-stone-900 placeholder:text-stone-400 focus:border-amber-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-800/20"
+              className="h-10 w-full rounded-full border border-stone-500/60 bg-white py-2 pl-9 pr-4 text-xs text-stone-900 placeholder:text-stone-500 focus:border-amber-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-800/20"
             />
           </form>
         </div>
@@ -107,7 +122,7 @@ export function Header() {
             type="button"
             onClick={openDrawer}
             aria-label={`Open shopping cart drawer with ${itemCount} items`}
-            className="group relative flex h-10 items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-stone-800 transition hover:border-stone-300 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 focus-visible:ring-offset-2"
+            className="group relative flex h-11 items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-stone-800 transition hover:border-stone-300 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 focus-visible:ring-offset-2"
           >
             <ShoppingBag className="h-4 w-4 text-stone-700 transition-transform group-hover:scale-105" aria-hidden="true" />
             <span className="hidden text-xs font-semibold uppercase tracking-wider sm:inline">Bag</span>
@@ -128,7 +143,7 @@ export function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? 'Close main navigation' : 'Open main navigation'}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-stone-200 bg-white text-stone-700 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-800 md:hidden"
           >
             {mobileMenuOpen ? (
               <X className="h-5 w-5" aria-hidden="true" />
@@ -157,7 +172,7 @@ export function Header() {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search ceramics, lighting, textiles…"
             autoComplete="off"
-            className="w-full rounded-lg border border-stone-200 bg-white py-1.5 pl-8 pr-3 text-xs text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-800"
+            className="h-11 w-full rounded-lg border border-stone-500/60 bg-white py-2 pl-9 pr-3 text-xs text-stone-900 placeholder:text-stone-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-800"
           />
         </form>
       </div>
@@ -166,48 +181,48 @@ export function Header() {
       {mobileMenuOpen && (
         <nav
           aria-label="Mobile Navigation"
-          className="border-t border-stone-200 bg-white px-4 py-4 md:hidden animate-in slide-in-from-top-2 duration-200"
+          className="border-t border-stone-200 bg-white px-4 py-4 md:hidden animate-slide-down motion-reduce:animate-none"
         >
           <div className="flex flex-col space-y-1">
             <Link
               href="/products"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm font-semibold text-stone-800 hover:bg-stone-100"
+              className="flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-stone-800 hover:bg-stone-100"
             >
               All Pieces
             </Link>
             <Link
               href="/products?category=ceramics"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
+              className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-stone-700 hover:bg-stone-100"
             >
               Artisan Ceramics
             </Link>
             <Link
               href="/products?category=textiles"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
+              className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-stone-700 hover:bg-stone-100"
             >
               Handwoven Textiles
             </Link>
             <Link
               href="/products?category=lighting"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
+              className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-stone-700 hover:bg-stone-100"
             >
               Ambient Lighting
             </Link>
             <Link
               href="/products?category=decor"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-700 hover:bg-stone-100"
+              className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-stone-700 hover:bg-stone-100"
             >
               Hand-Carved Objects
             </Link>
             <Link
               href="/cart"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between rounded-lg border-t border-stone-100 pt-3 px-3 py-2 text-sm font-semibold text-stone-900 hover:bg-stone-100"
+              className="flex min-h-11 items-center justify-between rounded-lg border-t border-stone-100 px-3 pt-3 text-sm font-semibold text-stone-900 hover:bg-stone-100"
             >
               <span>View Shopping Bag</span>
               <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-900">

@@ -20,24 +20,24 @@ export default function ErrorBoundary({
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 mb-6">
         <AlertTriangle className="h-8 w-8 stroke-1" aria-hidden="true" />
       </div>
-      <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+      <h1 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
         Something went wrong
       </h1>
-      <p className="mt-2 max-w-md text-sm text-slate-500">
+      <p className="mt-2 max-w-md text-sm text-stone-500">
         We encountered an unexpected issue while loading this page. Our team has been notified.
       </p>
       <div className="mt-6 flex items-center justify-center gap-3">
         <button
           type="button"
           onClick={() => reset()}
-          className="inline-flex items-center gap-2 rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+          className="inline-flex items-center gap-2 rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
         >
           <RotateCcw className="h-4 w-4" aria-hidden="true" />
           Try Again
         </button>
         <Link
           href="/"
-          className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+          className="inline-flex items-center rounded-xl border border-stone-200 bg-white px-5 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
         >
           Go to Homepage
         </Link>
