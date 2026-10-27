@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
+import React, { createContext, useContext, useEffect, useReducer, useRef, useState } from 'react';
 import { CartItem, Product, CartAction, CartState } from '@/types';
 import {
   addItemToCart,
@@ -9,6 +9,13 @@ import {
   calculateCartTotals,
   CartCalculation,
 } from './cart-reducer';
+
+export interface CartToast {
+  id: number;
+  message: string;
+  actionLabel?: string;
+  onAction?: () => void;
+}
 
 interface CartContextValue extends CartCalculation {
   items: CartItem[];
@@ -19,7 +26,7 @@ interface CartContextValue extends CartCalculation {
   removeItem: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
-  toastMessage: string | null;
+  toast: CartToast | null;
   dismissToast: () => void;
 }
 
@@ -82,8 +89,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     isOpen: false,
   });
 
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toast, setToast] = useState<CartToast | null>(null);
   const [hasLoadedFromStorage, setHasLoadedFromStorage] = useState(false);
+  const toastIdRef = useRef(0);
 
   // Load cart from localStorage on client mount
   useEffect(() => {
@@ -117,11 +125,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [state.items, hasLoadedFromStorage]);
 
-  const showToast = (message: string) => {
-    setToastMessage(message);
-    setTimeout(() => {
-      setToastMessage((current) => (current === message ? null : current));
-    }, 3500);
+  // Auto-dismiss toasts. Action toasts stay a little longer so Undo is reachable.
+  useEffect(() => {
+    if (!toast) return;
+    const timeout = window.setTimeout(() => setToast(null), toast.actionLabel ? 7000 : 3500);
+    return () => window.clearTimeout(timeout);
+  }, [toast]);
+
+  const showToast = (
+    message: string,
+    options?: { actionLabel?: string; onAction?: () => void }
+  ) => {
+    toastIdRef.current += 1;
+    setToast({ id: toastIdRef.current, message, ...options });
   };
 
   const addItem = (product: Product, quantity: number = 1) => {
@@ -130,15 +146,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
-    showToast(`Added "${product.name}" to your cart.`);
+    showToast(`Added "${product.name}" to your basket.`);
   };
 
   const removeItem = (productId: number) => {
     const item = state.items.find((i) => i.product.id === productId);
+    if (!item) return;
+
+    const previousItems = state.items;
     dispatch({ type: 'REMOVE_ITEM', payload: { productId } });
-    if (item) {
-      showToast(`Removed "${item.product.name}" from cart.`);
-    }
+    showToast(`Removed "${item.product.name}" from your basket.`, {
+      actionLabel: 'Undo',
+      onAction: () => dispatch({ type: 'LOAD_CART', payload: previousItems }),
+    });
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
@@ -146,12 +166,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const clearCart = () => {
+    if (state.items.length === 0) return;
+
+    const previousItems = state.items;
     dispatch({ type: 'CLEAR_CART' });
+    showToast('Your basket has been cleared.', {
+      actionLabel: 'Undo',
+      onAction: () => dispatch({ type: 'LOAD_CART', payload: previousItems }),
+    });
   };
 
   const openDrawer = () => dispatch({ type: 'SET_DRAWER', payload: true });
   const closeDrawer = () => dispatch({ type: 'SET_DRAWER', payload: false });
-  const dismissToast = () => setToastMessage(null);
+  const dismissToast = () => setToast(null);
 
   const calculations = calculateCartTotals(state.items);
 
@@ -166,7 +193,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         removeItem,
         updateQuantity,
         clearCart,
-        toastMessage,
+        toast,
         dismissToast,
         ...calculations,
       }}

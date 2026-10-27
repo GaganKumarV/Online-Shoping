@@ -115,8 +115,9 @@ export default function CartPage() {
                       <button
                         type="button"
                         onClick={() => updateQuantity(product.id, quantity - 1)}
+                        disabled={quantity <= 1}
                         aria-label={`Decrease quantity of ${product.name}`}
-                        className="flex h-11 w-11 items-center justify-center rounded-l-full text-stone-600 transition-colors hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+                        className="flex h-11 w-11 items-center justify-center rounded-l-full text-stone-600 transition-colors hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                       >
                         <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
@@ -127,16 +128,27 @@ export default function CartPage() {
                         type="button"
                         onClick={() => updateQuantity(product.id, quantity + 1)}
                         disabled={quantity >= product.stock}
-                        aria-label={`Increase quantity of ${product.name}`}
+                        aria-label={
+                          quantity >= product.stock
+                            ? `Maximum available quantity of ${product.name} reached`
+                            : `Increase quantity of ${product.name}`
+                        }
                         className="flex h-11 w-11 items-center justify-center rounded-r-full text-stone-600 transition-colors hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                       >
                         <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
                     </div>
 
-                    <span className="text-base font-semibold tabular-nums text-stone-900">
-                      {formatCurrency(product.price * quantity)}
-                    </span>
+                    <div className="text-right">
+                      <span className="text-base font-semibold tabular-nums text-stone-900">
+                        {formatCurrency(product.price * quantity)}
+                      </span>
+                      {quantity >= product.stock && (
+                        <span className="mt-0.5 block text-[11px] text-amber-800">
+                          Max {product.stock} available
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </li>

@@ -61,38 +61,86 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
 
-  const validateForm = (): boolean => {
-    const errs: FormErrors = {};
+  const isExpiryValid = (value: string) => {
+    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) return false;
+    const [month, year] = value.split('/').map(Number);
+    // Valid through the last day of the stated month.
+    return new Date(2000 + year, month, 1) > new Date();
+  };
 
-    if (!address.fullName.trim()) errs.fullName = 'Full name is required';
-    if (!address.email.trim() || !/^\S+@\S+\.\S+$/.test(address.email)) {
-      errs.email = 'Valid email address is required';
+  const validateField = (name: keyof FormErrors): string | undefined => {
+    switch (name) {
+      case 'fullName':
+        return address.fullName.trim() ? undefined : 'Full name is required';
+      case 'email':
+        return address.email.trim() && /^\S+@\S+\.\S+$/.test(address.email)
+          ? undefined
+          : 'Valid email address is required';
+      case 'phone':
+        return address.phone.trim() && address.phone.replace(/\D/g, '').length >= 10
+          ? undefined
+          : 'Valid 10-digit mobile number is required';
+      case 'streetAddress':
+        return address.streetAddress.trim() ? undefined : 'Street address is required';
+      case 'city':
+        return address.city.trim() ? undefined : 'City is required';
+      case 'state':
+        return address.state.trim() ? undefined : 'State is required';
+      case 'postalCode':
+        return /^[1-9][0-9]{5}$/.test(address.postalCode.trim())
+          ? undefined
+          : 'Valid 6-digit PIN code is required';
+      case 'cardNumber': {
+        const cleanCard = cardNumber.replace(/\s/g, '');
+        return /^\d{15,16}$/.test(cleanCard) ? undefined : 'Enter a valid card number';
+      }
+      case 'cardExpiry':
+        return isExpiryValid(cardExpiry) ? undefined : 'Enter a future date as MM/YY';
+      case 'cardCvc':
+        return /^\d{3,4}$/.test(cardCvc) ? undefined : 'Enter the 3 or 4 digit code';
+      case 'upiId':
+        return /^[\w.-]+@[\w.-]+$/.test(upiId.trim())
+          ? undefined
+          : 'Enter a valid UPI ID (e.g. user@okaxis)';
+      default:
+        return undefined;
     }
-    if (!address.phone.trim() || address.phone.replace(/\D/g, '').length < 10) {
-      errs.phone = 'Valid 10-digit mobile number is required';
-    }
-    if (!address.streetAddress.trim()) errs.streetAddress = 'Street address is required';
-    if (!address.city.trim()) errs.city = 'City is required';
-    if (!address.state.trim()) errs.state = 'State is required';
-    if (!address.postalCode.trim() || address.postalCode.replace(/\D/g, '').length !== 6) {
-      errs.postalCode = 'Valid 6-digit PIN code is required';
-    }
+  };
+
+  const handleBlur = (name: keyof FormErrors) => {
+    const message = validateField(name);
+    setErrors((previous) => {
+      const next = { ...previous };
+      if (message) {
+        next[name] = message;
+      } else {
+        delete next[name];
+      }
+      return next;
+    });
+  };
+
+  const validateForm = (): boolean => {
+    const fields: (keyof FormErrors)[] = [
+      'fullName',
+      'email',
+      'phone',
+      'streetAddress',
+      'city',
+      'state',
+      'postalCode',
+    ];
 
     if (paymentMethod === 'card') {
-      const cleanCard = cardNumber.replace(/\s/g, '');
-      if (!cleanCard || cleanCard.length < 15) {
-        errs.cardNumber = 'Enter a valid 16-digit card number';
-      }
-      if (!cardExpiry || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpiry)) {
-        errs.cardExpiry = 'Format MM/YY';
-      }
-      if (!cardCvc || cardCvc.length < 3) {
-        errs.cardCvc = '3 or 4 digits';
-      }
+      fields.push('cardNumber', 'cardExpiry', 'cardCvc');
     } else if (paymentMethod === 'upi') {
-      if (!upiId.trim() || !upiId.includes('@')) {
-        errs.upiId = 'Enter a valid UPI ID (e.g. user@okaxis)';
-      }
+      fields.push('upiId');
+    }
+
+    const errs: FormErrors = {};
+    for (const field of fields) {
+      const message = validateField(field);
+      if (message) errs[field] = message;
     }
 
     setErrors(errs);
@@ -117,6 +165,7 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setFormError(null);
 
     if (!validateForm()) {
@@ -124,11 +173,14 @@ export default function CheckoutPage() {
     }
 
     setIsSubmitting(true);
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 20000);
 
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           items,
           shippingAddress: address,
@@ -146,17 +198,21 @@ export default function CheckoutPage() {
       } else {
         setFormError(
           data?.message ||
-            'We could not place your order just now. Your cart is safe — please try again.'
+            'We could not place your order just now. Your basket is safe — please try again.'
         );
         window.setTimeout(() => errorSummaryRef.current?.focus(), 40);
       }
     } catch (err) {
       console.error('Order creation failed:', err);
+      const timedOut = err instanceof Error && err.name === 'AbortError';
       setFormError(
-        'We could not reach the checkout service. Check your connection and try again — your cart has been kept.'
+        timedOut
+          ? 'Checkout took too long to respond. Your basket is safe — check your connection and try again.'
+          : 'We could not reach the checkout service. Check your connection and try again — your basket has been kept.'
       );
       window.setTimeout(() => errorSummaryRef.current?.focus(), 40);
     } finally {
+      window.clearTimeout(timeout);
       setIsSubmitting(false);
     }
   };
@@ -264,6 +320,7 @@ export default function CheckoutPage() {
                     autoComplete="name"
                     value={address.fullName}
                     onChange={(e) => setAddress({ ...address, fullName: e.target.value })}
+                    onBlur={() => handleBlur('fullName')}
                     aria-invalid={Boolean(errors.fullName)}
                     aria-describedby={errors.fullName ? 'fullName-error' : undefined}
                     required aria-required="true" placeholder="e.g. Gagan Deep"
@@ -285,6 +342,7 @@ export default function CheckoutPage() {
                     spellCheck={false}
                     value={address.email}
                     onChange={(e) => setAddress({ ...address, email: e.target.value })}
+                    onBlur={() => handleBlur('email')}
                     aria-invalid={Boolean(errors.email)}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                     required aria-required="true" placeholder="name@example.com"
@@ -305,6 +363,7 @@ export default function CheckoutPage() {
                     inputMode="tel"
                     value={address.phone}
                     onChange={(e) => setAddress({ ...address, phone: e.target.value })}
+                    onBlur={() => handleBlur('phone')}
                     aria-invalid={Boolean(errors.phone)}
                     aria-describedby={errors.phone ? 'phone-error' : undefined}
                     required aria-required="true" placeholder="9876543210"
@@ -324,6 +383,7 @@ export default function CheckoutPage() {
                     autoComplete="street-address"
                     value={address.streetAddress}
                     onChange={(e) => setAddress({ ...address, streetAddress: e.target.value })}
+                    onBlur={() => handleBlur('streetAddress')}
                     aria-invalid={Boolean(errors.streetAddress)}
                     aria-describedby={errors.streetAddress ? 'streetAddress-error' : undefined}
                     required aria-required="true" placeholder="Flat 402, Sunshine Apartments, 12th Main Road"
@@ -343,6 +403,7 @@ export default function CheckoutPage() {
                     autoComplete="address-level2"
                     value={address.city}
                     onChange={(e) => setAddress({ ...address, city: e.target.value })}
+                    onBlur={() => handleBlur('city')}
                     aria-invalid={Boolean(errors.city)}
                     aria-describedby={errors.city ? 'city-error' : undefined}
                     required aria-required="true" placeholder="Bengaluru"
@@ -360,6 +421,7 @@ export default function CheckoutPage() {
                     name="state"
                     value={address.state}
                     onChange={(e) => setAddress({ ...address, state: e.target.value })}
+                    onBlur={() => handleBlur('state')}
                     required
                     aria-required="true"
                     className={inputClass}
@@ -389,6 +451,7 @@ export default function CheckoutPage() {
                     autoComplete="postal-code"
                     value={address.postalCode}
                     onChange={(e) => setAddress({ ...address, postalCode: e.target.value })}
+                    onBlur={() => handleBlur('postalCode')}
                     aria-invalid={Boolean(errors.postalCode)}
                     aria-describedby={errors.postalCode ? 'postalCode-error' : undefined}
                     required aria-required="true" placeholder="560001"
@@ -507,6 +570,7 @@ export default function CheckoutPage() {
                       maxLength={19}
                       value={cardNumber}
                       onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                      onBlur={() => handleBlur('cardNumber')}
                       aria-invalid={Boolean(errors.cardNumber)}
                       aria-describedby={errors.cardNumber ? 'cardNumber-error' : undefined}
                       className={inputClass}
@@ -528,6 +592,7 @@ export default function CheckoutPage() {
                         maxLength={5}
                         value={cardExpiry}
                         onChange={(e) => setCardExpiry(formatExpiry(e.target.value))}
+                        onBlur={() => handleBlur('cardExpiry')}
                         aria-invalid={Boolean(errors.cardExpiry)}
                         aria-describedby={errors.cardExpiry ? 'cardExpiry-error' : undefined}
                         className={inputClass}

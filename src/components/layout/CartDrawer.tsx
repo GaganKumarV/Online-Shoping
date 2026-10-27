@@ -166,8 +166,9 @@ export function CartDrawer() {
                       <button
                         type="button"
                         onClick={() => updateQuantity(product.id, quantity - 1)}
+                        disabled={quantity <= 1}
                         aria-label={`Decrease quantity of ${product.name}`}
-                        className="flex h-10 w-10 items-center justify-center text-stone-600 hover:bg-stone-100 rounded-l-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+                        className="flex h-11 w-11 items-center justify-center rounded-l-md text-stone-600 hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                       >
                         <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
@@ -178,8 +179,12 @@ export function CartDrawer() {
                         type="button"
                         onClick={() => updateQuantity(product.id, quantity + 1)}
                         disabled={quantity >= product.stock}
-                        aria-label={`Increase quantity of ${product.name}`}
-                        className="flex h-10 w-10 items-center justify-center text-stone-600 hover:bg-stone-100 rounded-r-md disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
+                        aria-label={
+                          quantity >= product.stock
+                            ? `Maximum available quantity of ${product.name} reached`
+                            : `Increase quantity of ${product.name}`
+                        }
+                        className="flex h-11 w-11 items-center justify-center rounded-r-md text-stone-600 hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-900"
                       >
                         <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                       </button>
