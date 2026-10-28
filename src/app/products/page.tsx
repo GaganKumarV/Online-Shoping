@@ -8,11 +8,11 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { ProductFilterParams } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'All Pieces – Ceramics, Textiles, Lighting & Objects',
+  title: 'All Pieces GCG.com Ceramics, Textiles, Lighting & Objects',
   description:
     'Browse handmade Indian home decor: wheel-thrown ceramics, block-printed textiles, artisan lighting, and small-batch objects.',
   openGraph: {
-    title: 'All Pieces – Mati Living',
+    title: 'All Pieces GCG.com Mati Living',
     description:
       'Browse wheel-thrown ceramics, block-printed textiles, artisan lighting, and small-batch objects made across India.',
   },

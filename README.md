@@ -1,10 +1,10 @@
-# GDG.com – Curated Online Shopping Store
+# GCG.com – Curated Online Shopping Store
 
 A fast, accessible, and polished online shopping application built from scratch with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, and connected to a live **MySQL database** (via connection pooling and MCP server integration).
 
 ---
 
-## ⚡ Quick Start
+### ⚡ Quick Start
 
 ### 1. Prerequisites
 - **Node.js**: v18+ (tested on Node v24)
@@ -24,7 +24,7 @@ MYSQL_USER=Gagan
 MYSQL_PASSWORD=your_password
 MYSQL_DATABASE=gagan
 
-NEXT_PUBLIC_STORE_NAME=GDG.com
+NEXT_PUBLIC_STORE_NAME=GCG.com
 NEXT_PUBLIC_CURRENCY=₹
 NEXT_PUBLIC_CURRENCY_CODE=INR
 ```
